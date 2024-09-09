@@ -122,10 +122,6 @@ public partial class Root : Node2D
             _countdown.Text = "GO!";
             var timer = GetTree().CreateTimer(BEAT_DURATION);
             timer.Timeout += StartGame;
-
-            BeatMapSync.Instance.started = true;
-
-            GD.Print("Starting game");
         }
         else
         {
@@ -153,6 +149,8 @@ public partial class Root : Node2D
         timer.Timeout += OnBeatTimerTimeout;
         AddChild(timer);
         timer.Start();
+
+        BeatMapSync.Instance.started = true;
     }
 
     private void EndGame()
@@ -234,7 +232,9 @@ public partial class Root : Node2D
 
     private void AddToScore(int score)
     {
-        _score.Text = (int.Parse(_score.Text) + score).ToString("N0");
+        _score.Text = (int.Parse(
+            _score.Text.Replace(",", "")
+        ) + score).ToString("N0");
     }
 
     private void ShowBeatResult(string key)
