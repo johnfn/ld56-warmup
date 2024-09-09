@@ -1,9 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://m05b2vjnyjty"]
+[gd_scene load_steps=14 format=3 uid="uid://m05b2vjnyjty"]
 
 [ext_resource type="Script" path="res://Root.cs" id="1_h3y6u"]
 [ext_resource type="PackedScene" uid="uid://bc074cp6tc1tq" path="res://arrow.tscn" id="2_cpfdo"]
-[ext_resource type="PackedScene" uid="uid://eiw4wr8qk71" path="res://beat_map_sync.tscn" id="3_n35kk"]
-[ext_resource type="Script" path="res://BeatMapSync.cs" id="4_rvtxp"]
 [ext_resource type="AudioStream" uid="uid://cy1q8ohdi8xc4" path="res://music/Neppa.mp3" id="5_tbpx1"]
 [ext_resource type="Texture2D" uid="uid://dniiyk04me44p" path="res://Assets/Room_Dark.png" id="6_7ic6o"]
 [ext_resource type="Texture2D" uid="uid://cs33ipc52wkb0" path="res://Assets/Room_Dark_Magic-Circle.png" id="7_rndya"]
@@ -93,9 +91,6 @@ modulate = Color(0.357422, 0.357422, 0.357422, 1)
 position = Vector2(1300, 14)
 Type = 3
 Tint = Color(0.357422, 0.357422, 0.357422, 1)
-
-[node name="BeatMapSync" parent="." instance=ExtResource("3_n35kk")]
-script = ExtResource("4_rvtxp")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

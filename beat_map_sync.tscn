@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://eiw4wr8qk71"]
+[gd_scene load_steps=2 format=3 uid="uid://eiw4wr8qk71"]
+
+[ext_resource type="Script" path="res://BeatMapSync.cs" id="1_84gyr"]
 
 [node name="BeatMapSync" type="Node2D"]
+script = ExtResource("1_84gyr")

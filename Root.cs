@@ -61,6 +61,9 @@ public partial class Root : Node2D
             _countdown.Text = "GO!";
             var timer = GetTree().CreateTimer(BEAT_DURATION);
             timer.Timeout += StartGame;
+
+            var arrows = BeatMapSync.Instantiate();
+            GetTree().Root.AddChild(arrows);
         }
         else
         {
@@ -86,7 +89,7 @@ public partial class Root : Node2D
             UpdateBeatIndicator();
 
             if (_catSprite.Scale.Length() < 1)
-              _catSprite.Scale -= new Vector2(1,1) * (float)delta;
+                _catSprite.Scale -= new Vector2(1, 1) * (float)delta;
         }
     }
 
@@ -119,7 +122,7 @@ public partial class Root : Node2D
                 case Key.A:
                     _catSprite.Texture = CatLeft;
                     break;
-                case Key.S: 
+                case Key.S:
                     _catSprite.Texture = CatDown;
                     break;
                 case Key.D:

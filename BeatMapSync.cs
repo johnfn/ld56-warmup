@@ -12,9 +12,17 @@ public partial class BeatMapSync : Node2D
     private List<BeatMapArrow> _arrows = new List<BeatMapArrow>();
     private int _bpm;
 
+    public static BeatMapSync Instantiate()
+    {
+        var beatMapSync = GD.Load<PackedScene>("res://beat_map_sync.tscn").Instantiate<BeatMapSync>();
+        return beatMapSync;
+    }
+
     public override void _Ready()
     {
-        CreateArrows(120);
+        CreateArrows(180);
+
+        GD.Print("BeatMapSync instantiated");
     }
 
     private void CreateArrows(int bpm)
