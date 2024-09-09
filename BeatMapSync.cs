@@ -12,6 +12,7 @@ public partial class BeatMapSync : Node2D
     private List<BeatMapArrow> _arrows = new List<BeatMapArrow>();
     private int _bpm;
     public static BeatMapSync Instance { get; private set; }
+    public bool started = false;
 
     public List<BeatMapArrow> Arrows => _arrows;
 
@@ -25,8 +26,6 @@ public partial class BeatMapSync : Node2D
     {
         Instance = this;
         CreateArrows(180);
-
-        GD.Print("BeatMapSync instantiated");
     }
 
     private void CreateArrows(int bpm)
@@ -44,6 +43,8 @@ public partial class BeatMapSync : Node2D
             var height = note.StartBeat * _beatHeight;
             var div = ((float)note.Division.numerator / (float)note.Division.denominator);
             height += (int)(_beatHeight * div);
+
+            height += 100;
 
             switch (_beatMap.Notes[i].ArrowType)
             {
@@ -70,12 +71,18 @@ public partial class BeatMapSync : Node2D
 
     public override void _Process(double delta)
     {
+        if (!started)
+            return;
+
         var beatHeight = 450;
-        var beatTime = (double)60 / (double)_bpm;
+        var beatTime = (double)60 / (double)_bpm; // (1 / 3)
 
         for (int i = 0; i < _arrows.Count; i++)
         {
             var (arrow, note) = _arrows[i];
+
+            if (!arrow.isInMotion)
+                continue;
 
             var speed = beatHeight / beatTime;
             var movement = (float)(speed * delta);

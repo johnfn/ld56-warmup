@@ -11,6 +11,8 @@ public enum ArrowType
 [Tool]
 public partial class Arrow : Node2D
 {
+    public bool isInMotion = true;
+
     private Sprite2D _arrowUp
     {
         get
@@ -82,7 +84,6 @@ public partial class Arrow : Node2D
 
     private void UpdateArrowVisibility()
     {
-        GD.Print($"Arrow type: {_type}");
         _arrowDown.Visible = _type == ArrowType.Down;
         _arrowLeft.Visible = _type == ArrowType.Left;
         _arrowRight.Visible = _type == ArrowType.Right;

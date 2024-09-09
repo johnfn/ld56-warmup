@@ -83,7 +83,6 @@ public partial class Root : Node2D
         _crowdBG = GetNode<Sprite2D>("Background/CrowdContainer/CrowdBG");
         _crowdFG = GetNode<Sprite2D>("Background/CrowdContainer/CrowdFG");
 
-
         StartCountdown();
     }
 
@@ -107,8 +106,9 @@ public partial class Root : Node2D
             var timer = GetTree().CreateTimer(BEAT_DURATION);
             timer.Timeout += StartGame;
 
-            var arrows = BeatMapSync.Instantiate();
-            GetTree().Root.AddChild(arrows);
+            BeatMapSync.Instance.started = true;
+
+            GD.Print("Starting game");
         }
         else
         {
@@ -171,8 +171,6 @@ public partial class Root : Node2D
             _crowdBG.Rotation = Mathf.Lerp(_crowdBG.Rotation, 0, (float)delta * 2);
             _crowdFG.Rotation = Mathf.Lerp(_crowdFG.Rotation, 0, (float)delta * 2);
         }
-
-
     }
 
     public override void _Input(InputEvent @event)
@@ -181,7 +179,11 @@ public partial class Root : Node2D
         {
             _timeSinceLastKeyPress = 0;
             GetNode<Label>("UI/KeyPressed").Text = keyEvent.Keycode.ToString();
+            GD.Print("====");
+            GD.Print($"Key pressed: {keyEvent.Keycode}");
             ShowBeatResult(keyEvent.Keycode.ToString());
+            GD.Print("====");
+
 
             // Switch the cat sprite based on the key pressed
             switch (keyEvent.Keycode)
@@ -231,10 +233,15 @@ public partial class Root : Node2D
             }
         }
 
+        GD.Print($"Beat is roughly: {_songElapsed / BEAT_DURATION}");
+        GD.Print($"Distnace away: {closestTimeDifference}");
+
         if (closestTimeDifference >= 0.2)
         {
             // Too far away to even flag the note as an error, just die!
             node.Text = "Miss";
+            _goatSprite.Texture = GoatSad;
+            GD.Print("Miss, too far away");
         }
         else if (
             closestArrow != null &&
@@ -246,6 +253,8 @@ public partial class Root : Node2D
         {
             node.Text = "Miss";
             _goatSprite.Texture = GoatSad;
+
+            GD.Print($"Miss, wrong note: {closestArrow.arrow.Type} but saw {key}");
         }
         else
         {
@@ -268,12 +277,13 @@ public partial class Root : Node2D
             {
                 node.Text = "Miss";
                 _goatSprite.Texture = GoatSad;
+                GD.Print("Miss, too far away, tho closer.");
             }
 
             if (closestArrow == null)
                 return;
 
-            GD.Print("REMOVING ARROW");
+            closestArrow.arrow.isInMotion = false;
             closestArrow.arrow.Visible = false;
         }
 
@@ -293,8 +303,6 @@ public partial class Root : Node2D
         var rArrow = GetTree().Root.GetNode<Node2D>("Root/RightArrow");
 
         Node2D hitArrow = null;
-
-        GD.Print(key);
 
         switch (key)
         {
