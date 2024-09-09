@@ -1,28 +1,48 @@
-[gd_scene load_steps=14 format=3 uid="uid://m05b2vjnyjty"]
+[gd_scene load_steps=23 format=3 uid="uid://m05b2vjnyjty"]
 
 [ext_resource type="Script" path="res://Root.cs" id="1_h3y6u"]
 [ext_resource type="PackedScene" uid="uid://bc074cp6tc1tq" path="res://arrow.tscn" id="2_cpfdo"]
+[ext_resource type="Texture2D" uid="uid://qdiq7c0nc256" path="res://Assets/Cat_Down.png" id="2_yi32p"]
+[ext_resource type="Texture2D" uid="uid://cph01xlwdfe2f" path="res://Assets/Cat_Left.png" id="3_vfogi"]
+[ext_resource type="Texture2D" uid="uid://d3kndf3yxelwb" path="res://Assets/Cat_Up.png" id="4_c621a"]
+[ext_resource type="Texture2D" uid="uid://br0p7v5aw4w03" path="res://Assets/Cat_Right.png" id="5_ofv0o"]
 [ext_resource type="AudioStream" uid="uid://cy1q8ohdi8xc4" path="res://music/Neppa.mp3" id="5_tbpx1"]
 [ext_resource type="Texture2D" uid="uid://dniiyk04me44p" path="res://Assets/Room_Dark.png" id="6_7ic6o"]
+[ext_resource type="Texture2D" uid="uid://xjrfkqj1ii6u" path="res://Assets/Room_Bright.png" id="7_lhwmh"]
 [ext_resource type="Texture2D" uid="uid://cs33ipc52wkb0" path="res://Assets/Room_Dark_Magic-Circle.png" id="7_rndya"]
 [ext_resource type="Texture2D" uid="uid://dgq2hww2x56rx" path="res://Assets/Goat_Neutral.png" id="8_gp1ou"]
 [ext_resource type="Texture2D" uid="uid://clhljwj557blg" path="res://Assets/Demon_Neutral.png" id="9_7najv"]
+[ext_resource type="Texture2D" uid="uid://cl3bbd1g05rkm" path="res://Assets/Room_Bright_Magic-Circle.png" id="9_xcrgv"]
+[ext_resource type="Texture2D" uid="uid://cebmu3togt2ic" path="res://Assets/Goat_Approve.png" id="10_3qmuw"]
 [ext_resource type="Texture2D" uid="uid://27l13p4cxmbl" path="res://Assets/Magic-Circle_Light.png" id="10_sm30g"]
 [ext_resource type="Texture2D" uid="uid://drl1ocvsl5464" path="res://Assets/Cat_Stand.png" id="11_lll0o"]
+[ext_resource type="Texture2D" uid="uid://bvakehog1x2px" path="res://Assets/Goat_Disappoint.png" id="11_sauwi"]
 [ext_resource type="Texture2D" uid="uid://bv51m287nws8q" path="res://Assets/Room_SpotLight_Right.png" id="12_ck8dc"]
 [ext_resource type="Texture2D" uid="uid://j4p7vkitgmys" path="res://Assets/Room_SpotLight_Left.png" id="13_ewox5"]
 [ext_resource type="Texture2D" uid="uid://dloip7e8fb4kj" path="res://Assets/Combo_Hands_Mid.png" id="14_ni0n0"]
 [ext_resource type="Texture2D" uid="uid://bxwk6n0frgxvw" path="res://Assets/Combo_Hands_FG.png" id="15_kmbek"]
+[ext_resource type="Theme" uid="uid://do503jsjv23pi" path="res://Theme.tres" id="19_ou28h"]
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_h3y6u")
+CatDown = ExtResource("2_yi32p")
+CatLeft = ExtResource("3_vfogi")
+CatUp = ExtResource("4_c621a")
+CatRight = ExtResource("5_ofv0o")
+BackgroundDark = ExtResource("6_7ic6o")
+BackgroundLight = ExtResource("7_lhwmh")
+MagicCircleDark = ExtResource("7_rndya")
+MagicCircleLight = ExtResource("9_xcrgv")
+GoatHappy = ExtResource("10_3qmuw")
+GoatSad = ExtResource("11_sauwi")
+GoatNeutral = ExtResource("8_gp1ou")
 
 [node name="Background" type="Sprite2D" parent="."]
 scale = Vector2(0.927226, 0.927226)
 texture = ExtResource("6_7ic6o")
 centered = false
 
-[node name="RoomMagicCircle" type="Sprite2D" parent="Background"]
+[node name="MagicCircle" type="Sprite2D" parent="Background"]
 position = Vector2(308.447, 774.353)
 texture = ExtResource("7_rndya")
 centered = false
@@ -33,6 +53,7 @@ texture = ExtResource("8_gp1ou")
 centered = false
 
 [node name="Demon" type="Sprite2D" parent="Background"]
+visible = false
 position = Vector2(2.15697, -5.39243)
 texture = ExtResource("9_7najv")
 centered = false
@@ -53,21 +74,23 @@ position = Vector2(5.39246, 3.23547)
 texture = ExtResource("13_ewox5")
 centered = false
 
-[node name="SpotlightL2" type="Sprite2D" parent="Background"]
-position = Vector2(-9.70637, 403.354)
-texture = ExtResource("14_ni0n0")
-centered = false
-
-[node name="SpotlightL3" type="Sprite2D" parent="Background"]
-position = Vector2(1.07849, 531.693)
-texture = ExtResource("15_kmbek")
-centered = false
-
 [node name="CatContainer" type="Node2D" parent="Background"]
 
 [node name="Cat" type="Sprite2D" parent="Background/CatContainer"]
 position = Vector2(1000.83, 777.588)
 texture = ExtResource("11_lll0o")
+
+[node name="CrowdContainer" type="Node2D" parent="Background"]
+position = Vector2(1029.95, 849.847)
+
+[node name="CrowdBG" type="Sprite2D" parent="Background/CrowdContainer"]
+position = Vector2(0, -64.7091)
+scale = Vector2(1.05, 1.05)
+texture = ExtResource("14_ni0n0")
+
+[node name="CrowdFG" type="Sprite2D" parent="Background/CrowdContainer"]
+scale = Vector2(1.05, 1.05)
+texture = ExtResource("15_kmbek")
 
 [node name="LeftArrow" parent="." instance=ExtResource("2_cpfdo")]
 modulate = Color(0.357422, 0.357422, 0.357422, 1)
@@ -102,6 +125,7 @@ offset_right = 1919.0
 offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("19_ou28h")
 
 [node name="Countdown" type="Label" parent="UI"]
 layout_mode = 1
@@ -111,11 +135,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -11.5
+offset_top = -36.5
 offset_right = 20.0
-offset_bottom = 11.5
+offset_bottom = 36.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 150
 text = "3"
 
 [node name="KeyPressed" type="Label" parent="UI"]
@@ -132,18 +157,6 @@ offset_right = 20.0
 offset_bottom = -44.5
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="BeatIndicator" type="ColorRect" parent="UI"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_tbpx1")
