@@ -23,11 +23,6 @@ public partial class BeatMapSync : Node2D
         var _beatHeight = 450; // should probably calculate this based on bpm
         _bpm = bpm;
 
-        // Left is (0, 0)
-        // Down is (100, 0)
-        // Up is (200, 0)
-        // Right is (300, 0)
-
         for (int i = 0; i < _beatMap.Notes.Count; i++)
         {
             var note = _beatMap.Notes[i];
@@ -41,25 +36,24 @@ public partial class BeatMapSync : Node2D
             switch (_beatMap.Notes[i].ArrowType)
             {
                 case ArrowType.Left:
-                    arrow.Position = new Vector2(0, height);
+                    arrow.Position = new Vector2(700, height);
                     break;
 
                 case ArrowType.Down:
-                    arrow.Position = new Vector2(100, height);
+                    arrow.Position = new Vector2(900, height);
                     break;
 
                 case ArrowType.Up:
-                    arrow.Position = new Vector2(200, height);
+                    arrow.Position = new Vector2(1100, height);
                     break;
 
                 case ArrowType.Right:
-                    arrow.Position = new Vector2(300, height);
+                    arrow.Position = new Vector2(1300, height);
                     break;
             }
 
             _arrows.Add(new(arrow, note));
         }
-
     }
 
     public override void _Process(double delta)
