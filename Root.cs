@@ -183,9 +183,9 @@ public partial class Root : Node2D
             if (_timeSinceLastKeyPress > BEAT_DURATION)
             {
                 _catSprite.Texture = CatNeutral;
-            }  
+            }
 
-            Vector2 newScale = new Vector2(Mathf.Max(1, _catSprite.Scale.X - (float) delta * 2), Mathf.Max(1, _catSprite.Scale.Y - (float) delta * 2));
+            Vector2 newScale = new Vector2(Mathf.Max(1, _catSprite.Scale.X - (float)delta * 2), Mathf.Max(1, _catSprite.Scale.Y - (float)delta * 2));
             _catSprite.Scale = newScale;
 
             // Lerp crowd scale and rotation back to 1
@@ -196,7 +196,7 @@ public partial class Root : Node2D
             _crowdFG.Rotation = Mathf.Lerp(_crowdFG.Rotation, 0, (float)delta * 2);
         }
 
-        
+
     }
 
     public override void _Input(InputEvent @event)
@@ -265,6 +265,17 @@ public partial class Root : Node2D
             // Too far away to even flag the note as an error, just die!
             node.Text = "Miss";
         }
+        else if (
+            closestArrow != null &&
+            (closestArrow.arrow.Type == ArrowType.Up && key != "W" && key != "Up" ||
+            closestArrow.arrow.Type == ArrowType.Down && key != "S" && key != "Down" ||
+            closestArrow.arrow.Type == ArrowType.Left && key != "A" && key != "Left" ||
+            closestArrow.arrow.Type == ArrowType.Right && key != "D" && key != "Right")
+        )
+        {
+            node.Text = "Miss";
+            _goatSprite.Texture = GoatSad;
+        }
         else
         {
             if (closestTimeDifference < MARGIN_OF_ERROR)
@@ -294,6 +305,7 @@ public partial class Root : Node2D
             if (closestArrow == null)
                 return;
 
+            GD.Print("REMOVING ARROW");
             closestArrow.arrow.Visible = false;
         }
 
@@ -320,7 +332,7 @@ public partial class Root : Node2D
         {
             case "W":
             case "Up":
-                hitArrow = lArrow;
+                hitArrow = uArrow;
                 break;
 
             case "S":
@@ -330,7 +342,7 @@ public partial class Root : Node2D
 
             case "A":
             case "Left":
-                hitArrow = uArrow;
+                hitArrow = lArrow;
                 break;
 
             case "D":

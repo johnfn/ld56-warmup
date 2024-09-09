@@ -80,7 +80,6 @@ public partial class Arrow : Node2D
     {
     }
 
-
     private void UpdateArrowVisibility()
     {
         GD.Print($"Arrow type: {_type}");
@@ -89,5 +88,4 @@ public partial class Arrow : Node2D
         _arrowRight.Visible = _type == ArrowType.Right;
         _arrowUp.Visible = _type == ArrowType.Up;
     }
-
 }
