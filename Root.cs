@@ -202,31 +202,39 @@ public partial class Root : Node2D
         {
             _timeSinceLastKeyPress = 0;
             GetNode<Label>("UI/KeyPressed").Text = keyEvent.Keycode.ToString();
-            GD.Print("====");
-            GD.Print($"Key pressed: {keyEvent.Keycode}");
-            ShowBeatResult(keyEvent.Keycode.ToString());
-            GD.Print("====");
 
+            var wasMotion = false;
 
             // Switch the cat sprite based on the key pressed
             switch (keyEvent.Keycode)
             {
                 case Key.W:
+                case Key.Up:
                     _catSprite.Texture = CatUp;
+                    wasMotion = true;
                     break;
                 case Key.A:
+                case Key.Left:
                     _catSprite.Texture = CatLeft;
+                    wasMotion = true;
                     break;
                 case Key.S:
+                case Key.Down:
                     _catSprite.Texture = CatDown;
+                    wasMotion = true;
                     break;
                 case Key.D:
+                case Key.Right:
                     _catSprite.Texture = CatRight;
+                    wasMotion = true;
                     break;
             }
 
-            // Set cat scale to 1.2
-            _catSprite.Scale = new Vector2(1.2f, 1.2f);
+            if (wasMotion)
+            {
+                ShowBeatResult(keyEvent.Keycode.ToString());
+                _catSprite.Scale = new Vector2(1.2f, 1.2f);
+            }
         }
     }
 
@@ -263,15 +271,11 @@ public partial class Root : Node2D
             }
         }
 
-        GD.Print($"Beat is roughly: {_songElapsed / BEAT_DURATION}");
-        GD.Print($"Distnace away: {closestTimeDifference}");
-
         if (closestTimeDifference >= 0.2)
         {
             // Too far away to even flag the note as an error, just die!
             node.Text = "Miss";
             _goatSprite.Texture = GoatSad;
-            GD.Print("Miss, too far away");
         }
         else if (
             closestArrow != null &&
@@ -283,8 +287,6 @@ public partial class Root : Node2D
         {
             node.Text = "Miss";
             _goatSprite.Texture = GoatSad;
-
-            GD.Print($"Miss, wrong note: {closestArrow.arrow.Type} but saw {key}");
         }
         else
         {
@@ -310,7 +312,6 @@ public partial class Root : Node2D
             {
                 node.Text = "Miss";
                 _goatSprite.Texture = GoatSad;
-                GD.Print("Miss, too far away, tho closer.");
             }
 
             if (closestArrow == null)
