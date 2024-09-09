@@ -24,11 +24,20 @@ public partial class Root : Node2D
 
     private AudioStreamPlayer2D _audioStreamPlayer2D;
 
+    private Sprite2D _catSprite;
+
+    // Different exported sprites for the cat
+    [Export] public Texture2D CatDown;
+    [Export] public Texture2D CatLeft;
+    [Export] public Texture2D CatUp;
+    [Export] public Texture2D CatRight;
+
     public override void _Ready()
     {
         _countdown = GetNode<Label>("UI/Countdown");
         _beatIndicator = GetNode<ColorRect>("UI/BeatIndicator");
         _audioStreamPlayer2D = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
+        _catSprite = GetNode<Sprite2D>("Background/Cat");
 
         StartCountdown();
     }
@@ -75,6 +84,9 @@ public partial class Root : Node2D
         {
             _songElapsed += (float)delta;
             UpdateBeatIndicator();
+
+            if (_catSprite.Scale.Length() < 1)
+              _catSprite.Scale -= new Vector2(1,1) * (float)delta;
         }
     }
 
@@ -97,6 +109,26 @@ public partial class Root : Node2D
         {
             GetNode<Label>("UI/KeyPressed").Text = keyEvent.Keycode.ToString();
             ShowBeatResult();
+
+            // Switch the cat sprite based on the key pressed
+            switch (keyEvent.Keycode)
+            {
+                case Key.W:
+                    _catSprite.Texture = CatUp;
+                    break;
+                case Key.A:
+                    _catSprite.Texture = CatLeft;
+                    break;
+                case Key.S: 
+                    _catSprite.Texture = CatDown;
+                    break;
+                case Key.D:
+                    _catSprite.Texture = CatRight;
+                    break;
+            }
+
+            // Set cat scale to 1.2
+            _catSprite.Scale = new Vector2(1.2f, 1.2f);
         }
     }
 
