@@ -8,8 +8,19 @@
 [node name="Root" type="Node2D"]
 script = ExtResource("1_h3y6u")
 
-[node name="Arrow" parent="." instance=ExtResource("2_cpfdo")]
+[node name="LeftArrow" parent="." instance=ExtResource("2_cpfdo")]
+Type = 2
+
+[node name="DownArrow" parent="." instance=ExtResource("2_cpfdo")]
+position = Vector2(100, 0)
+Type = 1
+
+[node name="RightArrow" parent="." instance=ExtResource("2_cpfdo")]
+position = Vector2(200, 0)
 Type = 3
+
+[node name="UpArrow" parent="." instance=ExtResource("2_cpfdo")]
+position = Vector2(300, 0)
 
 [node name="BeatMapSync" parent="." instance=ExtResource("3_n35kk")]
 script = ExtResource("4_rvtxp")
