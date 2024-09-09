@@ -153,7 +153,7 @@ public partial class Root : Node2D
         {
             _songElapsed += (float)delta;
 
-            Vector2 newScale = new Vector2(Mathf.Max(1, _catSprite.Scale.X - (float) delta * 2), Mathf.Max(1, _catSprite.Scale.Y - (float) delta * 2));
+            Vector2 newScale = new Vector2(Mathf.Max(1, _catSprite.Scale.X - (float)delta * 2), Mathf.Max(1, _catSprite.Scale.Y - (float)delta * 2));
             _catSprite.Scale = newScale;
 
             // Lerp crowd scale and rotation back to 1
@@ -164,7 +164,7 @@ public partial class Root : Node2D
             _crowdFG.Rotation = Mathf.Lerp(_crowdFG.Rotation, 0, (float)delta * 2);
         }
 
-        
+
     }
 
     public override void _Input(InputEvent @event)
@@ -253,6 +253,7 @@ public partial class Root : Node2D
             if (closestArrow == null)
                 return;
 
+            GD.Print("REMOVING ARROW");
             closestArrow.arrow.Visible = false;
         }
 
@@ -276,7 +277,7 @@ public partial class Root : Node2D
         {
             case "W":
             case "Up":
-                hitArrow = lArrow;
+                hitArrow = uArrow;
                 break;
 
             case "S":
@@ -286,7 +287,7 @@ public partial class Root : Node2D
 
             case "A":
             case "Left":
-                hitArrow = uArrow;
+                hitArrow = lArrow;
                 break;
 
             case "D":
