@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://eiw4wr8qk71"]
+
+[node name="BeatMapSync" type="Node2D"]

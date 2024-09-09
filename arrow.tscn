@@ -1,9 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://bc074cp6tc1tq"]
 
-[ext_resource type="Texture2D" uid="uid://dt5q0jqo3eewj" path="res://Assets/BestArrow.png" id="1_dxdyo"]
+[ext_resource type="Texture2D" uid="uid://cwomssgcilh5f" path="res://Assets/Arrow_Up.png" id="1_s4qci"]
 
 [node name="Arrow" type="Node2D"]
 
-[node name="BestArrow" type="Sprite2D" parent="."]
-texture = ExtResource("1_dxdyo")
+[node name="ArrowUp" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_s4qci")
 centered = false

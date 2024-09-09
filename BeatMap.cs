@@ -6,12 +6,12 @@ public class BeatMap {
   public static BeatMap GetBeatMap() {
     return new BeatMap {
       Notes = new List<BeatMapNote> {
-        new BeatMapNote(0, (0, 4), BeatType.Up),
-        new BeatMapNote(0, (2, 4), BeatType.Up),
-        new BeatMapNote(1, (0, 4), BeatType.Up),
-        new BeatMapNote(1, (2, 4), BeatType.Up),
-        new BeatMapNote(2, (0, 4), BeatType.Up),
-        new BeatMapNote(2, (2, 4), BeatType.Up),
+        new(0, (0, 4), BeatType.Up),
+        new(0, (2, 4), BeatType.Up),
+        new(1, (0, 4), BeatType.Up),
+        new(1, (2, 4), BeatType.Up),
+        new(2, (0, 4), BeatType.Up),
+        new(2, (2, 4), BeatType.Up),
       },
     };
   }

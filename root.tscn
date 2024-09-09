@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://m05b2vjnyjty"]
+[gd_scene load_steps=5 format=3 uid="uid://m05b2vjnyjty"]
 
 [ext_resource type="Script" path="res://Root.cs" id="1_h3y6u"]
 [ext_resource type="PackedScene" uid="uid://bc074cp6tc1tq" path="res://arrow.tscn" id="2_cpfdo"]
+[ext_resource type="PackedScene" uid="uid://eiw4wr8qk71" path="res://beat_map_sync.tscn" id="3_n35kk"]
+[ext_resource type="Script" path="res://BeatMapSync.cs" id="4_rvtxp"]
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_h3y6u")
 
 [node name="Arrow" parent="." instance=ExtResource("2_cpfdo")]
+
+[node name="BeatMapSync" parent="." instance=ExtResource("3_n35kk")]
+script = ExtResource("4_rvtxp")
