@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://m05b2vjnyjty"]
 
 [ext_resource type="Script" path="res://Root.cs" id="1_h3y6u"]
-[ext_resource type="PackedScene" path="res://arrow.tscn" id="2_cpfdo"]
-[ext_resource type="PackedScene" path="res://beat_map_sync.tscn" id="3_n35kk"]
+[ext_resource type="PackedScene" uid="uid://bc074cp6tc1tq" path="res://arrow.tscn" id="2_cpfdo"]
+[ext_resource type="PackedScene" uid="uid://eiw4wr8qk71" path="res://beat_map_sync.tscn" id="3_n35kk"]
 [ext_resource type="Script" path="res://BeatMapSync.cs" id="4_rvtxp"]
 [ext_resource type="AudioStream" uid="uid://cy1q8ohdi8xc4" path="res://music/Neppa.mp3" id="5_tbpx1"]
 
@@ -10,18 +10,26 @@
 script = ExtResource("1_h3y6u")
 
 [node name="LeftArrow" parent="." instance=ExtResource("2_cpfdo")]
+modulate = Color(0.357422, 0.357422, 0.357422, 1)
 Type = 2
+Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
 [node name="DownArrow" parent="." instance=ExtResource("2_cpfdo")]
+modulate = Color(0.357422, 0.357422, 0.357422, 1)
 position = Vector2(100, 0)
 Type = 1
+Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
 [node name="RightArrow" parent="." instance=ExtResource("2_cpfdo")]
+modulate = Color(0.357422, 0.357422, 0.357422, 1)
 position = Vector2(200, 0)
 Type = 3
+Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
 [node name="UpArrow" parent="." instance=ExtResource("2_cpfdo")]
+modulate = Color(0.357422, 0.357422, 0.357422, 1)
 position = Vector2(300, 0)
+Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
 [node name="BeatMapSync" parent="." instance=ExtResource("3_n35kk")]
 script = ExtResource("4_rvtxp")

@@ -52,6 +52,13 @@ public partial class Arrow : Node2D
         }
     }
 
+    [Export]
+    public Color Tint
+    {
+        get => Modulate;
+        set => Modulate = value;
+    }
+
     public static Arrow Instantiate(ArrowType type)
     {
         var arrow = GD.Load<PackedScene>("res://arrow.tscn").Instantiate<Arrow>();
