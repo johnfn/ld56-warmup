@@ -37,7 +37,7 @@ public partial class Root : Node2D
         _countdown = GetNode<Label>("UI/Countdown");
         _beatIndicator = GetNode<ColorRect>("UI/BeatIndicator");
         _audioStreamPlayer2D = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
-        _catSprite = GetNode<Sprite2D>("Background/Cat");
+        _catSprite = GetNode<Sprite2D>("Background/CatContainer/Cat");
 
         StartCountdown();
     }

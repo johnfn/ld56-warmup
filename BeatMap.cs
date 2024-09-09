@@ -9,12 +9,12 @@ public class BeatMap
         return new BeatMap
         {
             Notes = new List<BeatMapNote> {
-        new(0, (0, 4), ArrowType.Up),
-        new(0, (2, 4), ArrowType.Down),
-        new(1, (0, 4), ArrowType.Up),
-        new(1, (2, 4), ArrowType.Down),
-        new(2, (0, 4), ArrowType.Left),
-        new(2, (2, 4), ArrowType.Right),
+        new(2, (0, 4), ArrowType.Up),
+        new(2, (2, 4), ArrowType.Down),
+        new(3, (0, 4), ArrowType.Up),
+        new(3, (2, 4), ArrowType.Down),
+        new(4, (0, 4), ArrowType.Left),
+        new(4, (2, 4), ArrowType.Right),
       },
         };
     }

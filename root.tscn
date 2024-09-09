@@ -27,23 +27,6 @@ CatLeft = ExtResource("3_iq0lq")
 CatUp = ExtResource("4_du2xc")
 CatRight = ExtResource("5_6l6y1")
 
-[node name="LeftArrow" parent="." instance=ExtResource("2_cpfdo")]
-Type = 2
-
-[node name="DownArrow" parent="." instance=ExtResource("2_cpfdo")]
-position = Vector2(100, 0)
-Type = 1
-
-[node name="RightArrow" parent="." instance=ExtResource("2_cpfdo")]
-position = Vector2(200, 0)
-Type = 3
-
-[node name="UpArrow" parent="." instance=ExtResource("2_cpfdo")]
-position = Vector2(300, 0)
-
-[node name="BeatMapSync" parent="." instance=ExtResource("3_n35kk")]
-script = ExtResource("4_rvtxp")
-
 [node name="Background" type="Sprite2D" parent="."]
 scale = Vector2(0.927226, 0.927226)
 texture = ExtResource("6_7ic6o")
@@ -56,44 +39,37 @@ centered = false
 
 [node name="Goat" type="Sprite2D" parent="Background"]
 position = Vector2(1422.52, 277.171)
-scale = Vector2(1, 1)
 texture = ExtResource("8_gp1ou")
 centered = false
 
 [node name="Demon" type="Sprite2D" parent="Background"]
 position = Vector2(2.15697, -5.39243)
-scale = Vector2(1, 1)
 texture = ExtResource("9_7najv")
 centered = false
 
 [node name="MagicCircleLight" type="Sprite2D" parent="Background"]
 modulate = Color(1, 1, 1, 0.517647)
 position = Vector2(310.604, 0)
-scale = Vector2(1, 1)
 texture = ExtResource("10_sm30g")
 centered = false
 
 [node name="SpotlightR" type="Sprite2D" parent="Background"]
 position = Vector2(880.044, 5.3924)
-scale = Vector2(1, 1)
 texture = ExtResource("12_ck8dc")
 centered = false
 
 [node name="SpotlightL" type="Sprite2D" parent="Background"]
 position = Vector2(5.39246, 3.23547)
-scale = Vector2(1, 1)
 texture = ExtResource("13_ewox5")
 centered = false
 
 [node name="SpotlightL2" type="Sprite2D" parent="Background"]
 position = Vector2(-9.70637, 403.354)
-scale = Vector2(1, 1)
 texture = ExtResource("14_ni0n0")
 centered = false
 
 [node name="SpotlightL3" type="Sprite2D" parent="Background"]
 position = Vector2(1.07849, 531.693)
-scale = Vector2(1, 1)
 texture = ExtResource("15_kmbek")
 centered = false
 
@@ -101,15 +77,40 @@ centered = false
 
 [node name="Cat" type="Sprite2D" parent="Background/CatContainer"]
 position = Vector2(1000.83, 777.588)
-scale = Vector2(1, 1)
 texture = ExtResource("11_lll0o")
+
+[node name="LeftArrow" parent="." instance=ExtResource("2_cpfdo")]
+modulate = Color(0.357422, 0.357422, 0.357422, 1)
+Type = 2
+Tint = Color(0.357422, 0.357422, 0.357422, 1)
+
+[node name="DownArrow" parent="." instance=ExtResource("2_cpfdo")]
+modulate = Color(0.357422, 0.357422, 0.357422, 1)
+position = Vector2(100, 0)
+Type = 1
+Tint = Color(0.357422, 0.357422, 0.357422, 1)
+
+[node name="UpArrow" parent="." instance=ExtResource("2_cpfdo")]
+modulate = Color(0.357422, 0.357422, 0.357422, 1)
+position = Vector2(200, 0)
+Tint = Color(0.357422, 0.357422, 0.357422, 1)
+
+[node name="RightArrow" parent="." instance=ExtResource("2_cpfdo")]
+modulate = Color(0.357422, 0.357422, 0.357422, 1)
+position = Vector2(300, 0)
+Type = 3
+Tint = Color(0.357422, 0.357422, 0.357422, 1)
+
+[node name="BeatMapSync" parent="." instance=ExtResource("3_n35kk")]
+script = ExtResource("4_rvtxp")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 1920.0
+offset_left = -1.0
+offset_right = 1919.0
 offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
