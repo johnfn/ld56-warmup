@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://m05b2vjnyjty"]
 
 [ext_resource type="Script" path="res://Root.cs" id="1_h3y6u"]
-[ext_resource type="PackedScene" uid="uid://bc074cp6tc1tq" path="res://arrow.tscn" id="2_cpfdo"]
-[ext_resource type="PackedScene" uid="uid://eiw4wr8qk71" path="res://beat_map_sync.tscn" id="3_n35kk"]
+[ext_resource type="PackedScene" path="res://arrow.tscn" id="2_cpfdo"]
+[ext_resource type="PackedScene" path="res://beat_map_sync.tscn" id="3_n35kk"]
 [ext_resource type="Script" path="res://BeatMapSync.cs" id="4_rvtxp"]
 
 [node name="Root" type="Node2D"]
@@ -12,3 +12,55 @@ script = ExtResource("1_h3y6u")
 
 [node name="BeatMapSync" parent="." instance=ExtResource("3_n35kk")]
 script = ExtResource("4_rvtxp")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Countdown" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "3"
+
+[node name="KeyPressed" type="Label" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -67.5
+offset_right = 20.0
+offset_bottom = -44.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BeatIndicator" type="ColorRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0

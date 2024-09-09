@@ -1,13 +1,124 @@
 using Godot;
+using System;
 
-public partial class Root : Node2D {
-  private BeatMap _beatMap = BeatMap.GetBeatMap();
+public enum GamePhase
+{
+    Countdown,
+    Playing,
+    GameOver
+}
 
-  public override void _Ready() {
-    // GD.Print(_beatMap.Notes);
-  }
+public partial class Root : Node2D
+{
+    private const int BPM = 132;
+    private const float MARGIN_OF_ERROR = 0.1f;
+    private const float BEAT_DURATION = 60f / BPM;
 
-  public override void _Process(double delta) {
-    // GD.Print(_beatMap.Notes);
-  }
+    private BeatMap _beatMap = BeatMap.GetBeatMap();
+    private float _songElapsed = 0;
+    private GamePhase _currentPhase = GamePhase.Countdown;
+    private float _lastBeatTime = 0;
+
+    private Label _countdown;
+    private ColorRect _beatIndicator;
+    private AudioStreamPlayer _metronome;
+
+    public override void _Ready()
+    {
+        _countdown = GetNode<Label>("UI/Countdown");
+        _beatIndicator = GetNode<ColorRect>("UI/BeatIndicator");
+        _metronome = GetNode<AudioStreamPlayer>("Metronome");
+
+        StartCountdown();
+    }
+
+    private void StartCountdown()
+    {
+        _countdown.Visible = true;
+        _countdown.Text = "3";
+
+        var timer = GetTree().CreateTimer(1);
+        timer.Timeout += OnCountdownTimeout;
+    }
+
+    private void OnCountdownTimeout()
+    {
+        var currentNumber = int.Parse(_countdown.Text);
+        currentNumber--;
+
+        if (currentNumber == 0)
+        {
+            _countdown.Text = "GO!";
+            var timer = GetTree().CreateTimer(BEAT_DURATION);
+            timer.Timeout += StartGame;
+        }
+        else
+        {
+            _countdown.Text = currentNumber.ToString();
+            var timer = GetTree().CreateTimer(BEAT_DURATION);
+            timer.Timeout += OnCountdownTimeout;
+        }
+    }
+
+    private void StartGame()
+    {
+        _countdown.Visible = false;
+        _currentPhase = GamePhase.Playing;
+        _metronome.Play();
+        _lastBeatTime = 0;
+    }
+
+    public override void _Process(double delta)
+    {
+        if (_currentPhase == GamePhase.Playing)
+        {
+            _songElapsed += (float)delta;
+            UpdateBeatIndicator();
+        }
+    }
+
+    private void UpdateBeatIndicator()
+    {
+        float timeSinceLastBeat = _songElapsed - _lastBeatTime;
+        float alpha = 1 - (timeSinceLastBeat / BEAT_DURATION);
+        _beatIndicator.Modulate = new Color(1, 1, 1, Mathf.Clamp(alpha, 0, 1));
+
+        if (timeSinceLastBeat >= BEAT_DURATION)
+        {
+            _lastBeatTime = _songElapsed;
+            _beatIndicator.Modulate = new Color(1, 1, 1, 1);
+        }
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventKey keyEvent && keyEvent.Pressed)
+        {
+            GetNode<Label>("UI/KeyPressed").Text = keyEvent.Keycode.ToString();
+            ShowBeatResult();
+        }
+    }
+
+    private void ShowBeatResult()
+    {
+        var node = new Label();
+        float beatPosition = (_songElapsed % BEAT_DURATION) / BEAT_DURATION;
+        float error = Mathf.Min(beatPosition, 1 - beatPosition);
+
+        if (error < MARGIN_OF_ERROR)
+            node.Text = "Perfect";
+        else if (error < MARGIN_OF_ERROR * 2)
+            node.Text = "Good";
+        else if (error < MARGIN_OF_ERROR * 3)
+            node.Text = "Almost";
+        else
+            node.Text = "Miss";
+
+        node.SetAnchorsPreset(Control.LayoutPreset.Center);
+        GetNode<Control>("UI").AddChild(node);
+
+        var tween = CreateTween();
+        tween.TweenProperty(node, "modulate:a", 0, MARGIN_OF_ERROR * 2);
+        tween.TweenCallback(Callable.From(() => node.QueueFree()));
+    }
 }
