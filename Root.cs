@@ -10,7 +10,7 @@ public enum GamePhase
 
 public partial class Root : Node2D
 {
-    private const int BPM = 132;
+    private const int BPM = 180;
     private const float MARGIN_OF_ERROR = 0.1f;
     private const float BEAT_DURATION = 60f / BPM;
 
@@ -21,13 +21,14 @@ public partial class Root : Node2D
 
     private Label _countdown;
     private ColorRect _beatIndicator;
-    private AudioStreamPlayer _metronome;
+
+    private AudioStreamPlayer2D _audioStreamPlayer2D;
 
     public override void _Ready()
     {
         _countdown = GetNode<Label>("UI/Countdown");
         _beatIndicator = GetNode<ColorRect>("UI/BeatIndicator");
-        _metronome = GetNode<AudioStreamPlayer>("Metronome");
+        _audioStreamPlayer2D = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
 
         StartCountdown();
     }
@@ -64,7 +65,7 @@ public partial class Root : Node2D
     {
         _countdown.Visible = false;
         _currentPhase = GamePhase.Playing;
-        _metronome.Play();
+        _audioStreamPlayer2D.Play();
         _lastBeatTime = 0;
     }
 

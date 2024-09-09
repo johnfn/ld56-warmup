@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://m05b2vjnyjty"]
+[gd_scene load_steps=6 format=3 uid="uid://m05b2vjnyjty"]
 
 [ext_resource type="Script" path="res://Root.cs" id="1_h3y6u"]
 [ext_resource type="PackedScene" path="res://arrow.tscn" id="2_cpfdo"]
 [ext_resource type="PackedScene" path="res://beat_map_sync.tscn" id="3_n35kk"]
 [ext_resource type="Script" path="res://BeatMapSync.cs" id="4_rvtxp"]
+[ext_resource type="AudioStream" uid="uid://cy1q8ohdi8xc4" path="res://music/Neppa.mp3" id="5_tbpx1"]
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_h3y6u")
@@ -64,3 +65,6 @@ offset_left = -40.0
 offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_tbpx1")

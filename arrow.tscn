@@ -1,10 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://bc074cp6tc1tq"]
+[gd_scene load_steps=6 format=3 uid="uid://bc074cp6tc1tq"]
 
+[ext_resource type="Script" path="res://Arrow.cs" id="1_ph8lh"]
 [ext_resource type="Texture2D" uid="uid://cwomssgcilh5f" path="res://Assets/Arrow_Up.png" id="1_s4qci"]
+[ext_resource type="Texture2D" uid="uid://csmtlplwvly7r" path="res://Assets/Arrow_Down.png" id="3_trm1e"]
+[ext_resource type="Texture2D" uid="uid://df7c5atsbu43p" path="res://Assets/Arrow_Left.png" id="4_qctbv"]
+[ext_resource type="Texture2D" uid="uid://b3kyxixnpqjjc" path="res://Assets/Arrow_Right.png" id="5_n5ur6"]
 
 [node name="Arrow" type="Node2D"]
+script = ExtResource("1_ph8lh")
 
 [node name="ArrowUp" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_s4qci")
+centered = false
+
+[node name="ArrowDown" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_trm1e")
+centered = false
+
+[node name="ArrowLeft" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_qctbv")
+centered = false
+
+[node name="ArrowRight" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_n5ur6")
 centered = false
