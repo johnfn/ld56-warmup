@@ -37,12 +37,15 @@ public partial class Root : Node2D
     private Sprite2D _crowdBG;
     private Sprite2D _crowdFG;
 
+    private float _timeSinceLastKeyPress = 0;
+
 
     // Different exported sprites for the cat
     [Export] public Texture2D CatDown;
     [Export] public Texture2D CatLeft;
     [Export] public Texture2D CatUp;
     [Export] public Texture2D CatRight;
+    [Export] public Texture2D CatNeutral;
 
     // Background textures
     [Export] public Texture2D BackgroundDark;
@@ -152,6 +155,11 @@ public partial class Root : Node2D
         if (_currentPhase == GamePhase.Playing)
         {
             _songElapsed += (float)delta;
+            _timeSinceLastKeyPress += (float)delta;
+            if (_timeSinceLastKeyPress > BEAT_DURATION)
+            {
+                _catSprite.Texture = CatNeutral;
+            }  
 
             Vector2 newScale = new Vector2(Mathf.Max(1, _catSprite.Scale.X - (float) delta * 2), Mathf.Max(1, _catSprite.Scale.Y - (float) delta * 2));
             _catSprite.Scale = newScale;
@@ -171,6 +179,7 @@ public partial class Root : Node2D
     {
         if (@event is InputEventKey keyEvent && keyEvent.Pressed)
         {
+            _timeSinceLastKeyPress = 0;
             GetNode<Label>("UI/KeyPressed").Text = keyEvent.Keycode.ToString();
             ShowBeatResult();
 
@@ -256,7 +265,10 @@ public partial class Root : Node2D
             closestArrow.arrow.Visible = false;
         }
 
-        node.SetAnchorsPreset(Control.LayoutPreset.Center);
+        node.SetAnchorsPreset(Control.LayoutPreset.FullRect);
+        node.HorizontalAlignment = HorizontalAlignment.Center;
+        node.VerticalAlignment = VerticalAlignment.Center;
+
         GetNode<Control>("UI").AddChild(node);
 
         var tween = CreateTween();
