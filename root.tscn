@@ -1,7 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://m05b2vjnyjty"]
+[gd_scene load_steps=23 format=3 uid="uid://m05b2vjnyjty"]
 
 [ext_resource type="Script" path="res://Root.cs" id="1_h3y6u"]
 [ext_resource type="PackedScene" uid="uid://bc074cp6tc1tq" path="res://arrow.tscn" id="2_cpfdo"]
+[ext_resource type="Texture2D" uid="uid://qdiq7c0nc256" path="res://Assets/Cat_Down.png" id="2_yi32p"]
+[ext_resource type="Texture2D" uid="uid://cph01xlwdfe2f" path="res://Assets/Cat_Left.png" id="3_vfogi"]
+[ext_resource type="Texture2D" uid="uid://d3kndf3yxelwb" path="res://Assets/Cat_Up.png" id="4_c621a"]
+[ext_resource type="Texture2D" uid="uid://br0p7v5aw4w03" path="res://Assets/Cat_Right.png" id="5_ofv0o"]
 [ext_resource type="AudioStream" uid="uid://cy1q8ohdi8xc4" path="res://music/Neppa.mp3" id="5_tbpx1"]
 [ext_resource type="Texture2D" uid="uid://dniiyk04me44p" path="res://Assets/Room_Dark.png" id="6_7ic6o"]
 [ext_resource type="Texture2D" uid="uid://xjrfkqj1ii6u" path="res://Assets/Room_Bright.png" id="7_lhwmh"]
@@ -21,10 +25,10 @@
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_h3y6u")
-CatDown = ExtResource("2_yinny")
-CatLeft = ExtResource("3_iq0lq")
-CatUp = ExtResource("4_du2xc")
-CatRight = ExtResource("5_6l6y1")
+CatDown = ExtResource("2_yi32p")
+CatLeft = ExtResource("3_vfogi")
+CatUp = ExtResource("4_c621a")
+CatRight = ExtResource("5_ofv0o")
 BackgroundDark = ExtResource("6_7ic6o")
 BackgroundLight = ExtResource("7_lhwmh")
 MagicCircleDark = ExtResource("7_rndya")
