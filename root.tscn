@@ -22,7 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://dloip7e8fb4kj" path="res://Assets/Combo_Hands_Mid.png" id="14_ni0n0"]
 [ext_resource type="PackedScene" uid="uid://eiw4wr8qk71" path="res://beat_map_sync.tscn" id="14_ybten"]
 [ext_resource type="Texture2D" uid="uid://bxwk6n0frgxvw" path="res://Assets/Combo_Hands_FG.png" id="15_kmbek"]
-[ext_resource type="Theme" path="res://Theme.tres" id="19_ou28h"]
+[ext_resource type="Theme" uid="uid://do503jsjv23pi" path="res://Theme.tres" id="19_ou28h"]
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_h3y6u")
@@ -129,22 +129,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("19_ou28h")
 
-[node name="Countdown" type="Label" parent="UI"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -36.5
-offset_right = 20.0
-offset_bottom = 36.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 150
-text = "3"
-
 [node name="KeyPressed" type="Label" parent="UI"]
 visible = false
 layout_mode = 1
@@ -160,7 +144,112 @@ offset_bottom = -44.5
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Score" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -322.0
+offset_top = 24.0
+offset_right = -15.0
+offset_bottom = 97.0
+grow_horizontal = 0
+text = "0"
+horizontal_alignment = 2
+
+[node name="GameOver" type="Panel" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -598.0
+offset_top = -357.0
+offset_right = 598.0
+offset_bottom = 357.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="BeatMapSync" parent="." instance=ExtResource("14_ybten")]
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameOver"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameOver/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/GameOver/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="UI/GameOver/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="UI/GameOver/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="UI/GameOver/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "score"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="UI/GameOver/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 172
+text = "000,000,000"
+horizontal_alignment = 1
+
+[node name="Control2" type="Control" parent="UI/GameOver/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="Label4" type="Button" parent="UI/GameOver/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 120
+text = "Play Again"
+
+[node name="CountdownContainer" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Countdown" type="Label" parent="UI/CountdownContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.5
+offset_top = -75.5
+offset_right = 39.5
+offset_bottom = 75.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(39.29, 49.805)
+theme_override_font_sizes/font_size = 150
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_tbpx1")
