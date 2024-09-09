@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bc074cp6tc1tq"]
+
+[ext_resource type="Texture2D" uid="uid://dt5q0jqo3eewj" path="res://Assets/BestArrow.png" id="1_dxdyo"]
+
+[node name="Arrow" type="Node2D"]
+
+[node name="BestArrow" type="Sprite2D" parent="."]
+texture = ExtResource("1_dxdyo")
+centered = false
