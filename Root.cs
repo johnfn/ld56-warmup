@@ -19,12 +19,24 @@ public partial class Root : Node2D
     private GamePhase _currentPhase = GamePhase.Countdown;
     private float _lastBeatTime = 0;
 
+    // Nodes
     private Label _countdown;
-    private ColorRect _beatIndicator;
-
     private AudioStreamPlayer2D _audioStreamPlayer2D;
 
     private Sprite2D _catSprite;
+
+    private Sprite2D _goatSprite;
+
+    private Sprite2D _background;
+
+    private Sprite2D _magicCircle;
+
+    private Sprite2D _spotlightR;
+    private Sprite2D _spotlightL;
+
+    private Sprite2D _crowdBG;
+    private Sprite2D _crowdFG;
+
 
     // Different exported sprites for the cat
     [Export] public Texture2D CatDown;
@@ -32,12 +44,42 @@ public partial class Root : Node2D
     [Export] public Texture2D CatUp;
     [Export] public Texture2D CatRight;
 
+    // Background textures
+    [Export] public Texture2D BackgroundDark;
+    [Export] public Texture2D BackgroundLight;
+
+    // Magic circle textures
+
+    [Export] public Texture2D MagicCircleDark;
+    [Export] public Texture2D MagicCircleLight;
+
+    // Goat textures
+    [Export] public Texture2D GoatHappy;
+    [Export] public Texture2D GoatSad;
+    [Export] public Texture2D GoatNeutral;
+
+
     public override void _Ready()
     {
         _countdown = GetNode<Label>("UI/Countdown");
-        _beatIndicator = GetNode<ColorRect>("UI/BeatIndicator");
         _audioStreamPlayer2D = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
         _catSprite = GetNode<Sprite2D>("Background/CatContainer/Cat");
+        _background = GetNode<Sprite2D>("Background");
+        _background.Texture = BackgroundLight;
+
+        _magicCircle = GetNode<Sprite2D>("Background/MagicCircle");
+        _magicCircle.Texture = MagicCircleLight;
+
+        _spotlightR = GetNode<Sprite2D>("Background/SpotlightR");
+        _spotlightL = GetNode<Sprite2D>("Background/SpotlightL");
+        _spotlightL.Visible = false;
+        _spotlightR.Visible = false;
+
+        _goatSprite = GetNode<Sprite2D>("Background/Goat");
+
+        _crowdBG = GetNode<Sprite2D>("Background/CrowdContainer/CrowdBG");
+        _crowdFG = GetNode<Sprite2D>("Background/CrowdContainer/CrowdFG");
+
 
         StartCountdown();
     }
@@ -76,6 +118,30 @@ public partial class Root : Node2D
         _currentPhase = GamePhase.Playing;
         _audioStreamPlayer2D.Play();
         _lastBeatTime = 0;
+
+        // Darken the room and turn on the spotlights
+        _background.Texture = BackgroundDark;
+        _magicCircle.Texture = MagicCircleDark;
+        _spotlightL.Visible = true;
+
+        Timer timer = new Timer();
+        timer.WaitTime = BEAT_DURATION;
+        timer.OneShot = false;
+        timer.Timeout += OnBeatTimerTimeout;
+        AddChild(timer);
+        timer.Start();
+    }
+
+    private void OnBeatTimerTimeout()
+    {
+        if (_currentPhase == GamePhase.Playing)
+        {
+            _spotlightL.Visible = !_spotlightL.Visible;
+            _spotlightR.Visible = !_spotlightR.Visible;
+
+            _crowdBG.Scale = new Vector2(1.1f, 1.1f);
+            _crowdFG.Scale = new Vector2(1.1f, 1.1f);
+        }
     }
 
     public override void _Process(double delta)
@@ -83,24 +149,21 @@ public partial class Root : Node2D
         if (_currentPhase == GamePhase.Playing)
         {
             _songElapsed += (float)delta;
-            UpdateBeatIndicator();
 
-            if (_catSprite.Scale.Length() < 1)
-              _catSprite.Scale -= new Vector2(1,1) * (float)delta;
+            Vector2 newScale = new Vector2(Mathf.Max(1, _catSprite.Scale.X - (float) delta * 2), Mathf.Max(1, _catSprite.Scale.Y - (float) delta * 2));
+            _catSprite.Scale = newScale;
+
+            // Lerp crowd scale and rotation back to 1
+            _crowdBG.Scale = _crowdBG.Scale.Lerp(new Vector2(1, 1), (float)delta * 2);
+            _crowdFG.Scale = _crowdFG.Scale.Lerp(new Vector2(1, 1), (float)delta * 2);
+          
+           
+
+            _crowdBG.Rotation = Mathf.Lerp(_crowdBG.Rotation, 0, (float)delta * 2);
+            _crowdFG.Rotation = Mathf.Lerp(_crowdFG.Rotation, 0, (float)delta * 2);
         }
-    }
 
-    private void UpdateBeatIndicator()
-    {
-        float timeSinceLastBeat = _songElapsed - _lastBeatTime;
-        float alpha = 1 - (timeSinceLastBeat / BEAT_DURATION);
-        _beatIndicator.Modulate = new Color(1, 1, 1, Mathf.Clamp(alpha, 0, 1));
-
-        if (timeSinceLastBeat >= BEAT_DURATION)
-        {
-            _lastBeatTime = _songElapsed;
-            _beatIndicator.Modulate = new Color(1, 1, 1, 1);
-        }
+        
     }
 
     public override void _Input(InputEvent @event)
@@ -138,12 +201,18 @@ public partial class Root : Node2D
         float beatPosition = (_songElapsed % BEAT_DURATION) / BEAT_DURATION;
         float error = Mathf.Min(beatPosition, 1 - beatPosition);
 
-        if (error < MARGIN_OF_ERROR)
+        if (error < MARGIN_OF_ERROR) {
             node.Text = "Perfect";
-        else if (error < MARGIN_OF_ERROR * 2)
+            _goatSprite.Texture = GoatHappy;
+        }
+        else if (error < MARGIN_OF_ERROR * 2) {
             node.Text = "Good";
-        else if (error < MARGIN_OF_ERROR * 3)
+            _goatSprite.Texture = GoatNeutral;
+        }
+        else if (error < MARGIN_OF_ERROR * 3) {
             node.Text = "Almost";
+            _goatSprite.Texture = GoatSad;
+        }
         else
             node.Text = "Miss";
 
