@@ -37,7 +37,12 @@ public partial class Root : Node2D
     private Sprite2D _crowdBG;
     private Sprite2D _crowdFG;
 
+    private Label _score;
+
+    private Control _gameOverScreen;
+
     private float _timeSinceLastKeyPress = 0;
+
 
 
     // Different exported sprites for the cat
@@ -64,7 +69,7 @@ public partial class Root : Node2D
 
     public override void _Ready()
     {
-        _countdown = GetNode<Label>("UI/Countdown");
+        _countdown = GetNode<Label>("UI/CountdownContainer/Countdown");
         _audioStreamPlayer2D = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
         _catSprite = GetNode<Sprite2D>("Background/CatContainer/Cat");
         _background = GetNode<Sprite2D>("Background");
@@ -83,6 +88,9 @@ public partial class Root : Node2D
         _crowdBG = GetNode<Sprite2D>("Background/CrowdContainer/CrowdBG");
         _crowdFG = GetNode<Sprite2D>("Background/CrowdContainer/CrowdFG");
 
+        _score = GetNode<Label>("UI/Score");
+
+        _gameOverScreen = GetNode<Control>("UI/GameOver");
 
         StartCountdown();
     }
@@ -92,7 +100,11 @@ public partial class Root : Node2D
         _countdown.Visible = true;
         _countdown.Text = "3";
 
-        var timer = GetTree().CreateTimer(1);
+        _countdown.Scale = new Vector2(3, 3);
+        var tween = CreateTween();
+        tween.TweenProperty(_countdown, "scale", new Vector2(1, 1), BEAT_DURATION);
+
+        var timer = GetTree().CreateTimer(BEAT_DURATION);
         timer.Timeout += OnCountdownTimeout;
     }
 
@@ -100,6 +112,10 @@ public partial class Root : Node2D
     {
         var currentNumber = int.Parse(_countdown.Text);
         currentNumber--;
+
+        _countdown.Scale = new Vector2(3, 3);
+        var tween = CreateTween();
+        tween.TweenProperty(_countdown, "scale", new Vector2(1, 1), BEAT_DURATION);
 
         if (currentNumber == 0)
         {
@@ -136,6 +152,14 @@ public partial class Root : Node2D
         timer.Timeout += OnBeatTimerTimeout;
         AddChild(timer);
         timer.Start();
+    }
+
+    private void EndGame()
+    {
+        _currentPhase = GamePhase.GameOver;
+        _audioStreamPlayer2D.Stop();
+
+        _gameOverScreen.Visible = true;
     }
 
     private void OnBeatTimerTimeout()
@@ -204,6 +228,11 @@ public partial class Root : Node2D
             _catSprite.Scale = new Vector2(1.2f, 1.2f);
         }
     }
+    
+    private void AddToScore(int score)
+    {
+        _score.Text = (int.Parse(_score.Text) + score).ToString("N0");
+    }
 
     private void ShowBeatResult(string key)
     {
@@ -241,15 +270,18 @@ public partial class Root : Node2D
             if (closestTimeDifference < MARGIN_OF_ERROR)
             {
                 node.Text = "Perfect";
+                AddToScore(100);
                 _goatSprite.Texture = GoatHappy;
             }
             else if (closestTimeDifference < MARGIN_OF_ERROR * 2)
             {
                 node.Text = "Good";
+                AddToScore(15);
                 _goatSprite.Texture = GoatNeutral;
             }
             else if (closestTimeDifference < MARGIN_OF_ERROR * 3)
             {
+                AddToScore(5);
                 node.Text = "Almost";
                 _goatSprite.Texture = GoatSad;
             }

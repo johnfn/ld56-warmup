@@ -1,7 +1,55 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://do503jsjv23pi"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://do503jsjv23pi"]
 
 [ext_resource type="FontFile" uid="uid://ufrotcbg5tin" path="res://Assets/Fonts/LuckiestGuy-Regular.ttf" id="1_igfv0"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_du0b7"]
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+bg_color = Color(0.81, 0.1539, 0.48195, 0.984314)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 5
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3x3s"]
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+bg_color = Color(0.81, 0.1539, 0.48195, 0.984314)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_bojsv"]
+color = Color(1, 1, 1, 1)
+thickness = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jcs0r"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1.20327e-08, 1.20327e-08, 0.221712, 0.984314)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 5
+
 [resource]
+Button/font_sizes/font_size = 48
+Button/fonts/font = ExtResource("1_igfv0")
+Button/styles/hover = SubResource("StyleBoxFlat_du0b7")
+Button/styles/normal = SubResource("StyleBoxFlat_i3x3s")
+HSeparator/styles/separator = SubResource("StyleBoxLine_bojsv")
 Label/font_sizes/font_size = 72
 Label/fonts/font = ExtResource("1_igfv0")
+Panel/styles/panel = SubResource("StyleBoxFlat_jcs0r")

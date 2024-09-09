@@ -1,0 +1,81 @@
+[gd_scene load_steps=11 format=3 uid="uid://dwgflpanwujfr"]
+
+[ext_resource type="Theme" uid="uid://do503jsjv23pi" path="res://Theme.tres" id="1_wt0ew"]
+[ext_resource type="Script" path="res://MainMenu.cs" id="2_y0rgb"]
+[ext_resource type="Texture2D" uid="uid://qdiq7c0nc256" path="res://Assets/Cat_Down.png" id="4_uin67"]
+[ext_resource type="Texture2D" uid="uid://cph01xlwdfe2f" path="res://Assets/Cat_Left.png" id="5_47ub3"]
+[ext_resource type="Texture2D" uid="uid://br0p7v5aw4w03" path="res://Assets/Cat_Right.png" id="6_o2423"]
+[ext_resource type="Texture2D" uid="uid://drl1ocvsl5464" path="res://Assets/Cat_Stand.png" id="7_vplfo"]
+[ext_resource type="Texture2D" uid="uid://d3kndf3yxelwb" path="res://Assets/Cat_Up.png" id="8_l0h5n"]
+[ext_resource type="Texture2D" uid="uid://b2mjgi6qu5jps" path="res://Assets/Cat_Victory.png" id="9_getgq"]
+[ext_resource type="Texture2D" uid="uid://bv51m287nws8q" path="res://Assets/Room_SpotLight_Right.png" id="10_ywgmh"]
+[ext_resource type="AudioStream" uid="uid://cy1q8ohdi8xc4" path="res://music/Neppa.mp3" id="11_tk3je"]
+
+[node name="MainMenu" type="ColorRect"]
+custom_minimum_size = Vector2(1920, 1080)
+theme = ExtResource("1_wt0ew")
+color = Color(0, 0, 0, 1)
+script = ExtResource("2_y0rgb")
+_catSprites = Array[Texture2D]([ExtResource("4_uin67"), ExtResource("5_47ub3"), ExtResource("6_o2423"), ExtResource("7_vplfo"), ExtResource("8_l0h5n"), ExtResource("9_getgq")])
+
+[node name="Spotlight" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 980.0
+offset_top = -143.0
+offset_right = 2170.0
+offset_bottom = 944.0
+pivot_offset = Vector2(1190, 0)
+texture = ExtResource("10_ywgmh")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -681.0
+offset_top = -348.0
+offset_right = 138.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.0872665
+theme_override_colors/font_outline_color = Color(0.0864, 0.0929601, 0.48, 1)
+theme_override_constants/outline_size = 40
+theme_override_font_sizes/font_size = 200
+text = "Summoning Something"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -439.0
+offset_top = 153.0
+offset_right = -18.0
+offset_bottom = 352.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.0436332
+theme_override_colors/font_outline_color = Color(0.0864, 0.0929601, 0.48, 1)
+theme_override_font_sizes/font_size = 150
+text = "Play"
+autowrap_mode = 2
+
+[node name="CatSprite" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1317.0
+offset_top = 513.0
+offset_right = 1642.0
+offset_bottom = 895.0
+texture = ExtResource("8_l0h5n")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_tk3je")
+autoplay = true
