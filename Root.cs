@@ -103,6 +103,9 @@ public partial class Root : Node2D
             _countdown.Text = "GO!";
             var timer = GetTree().CreateTimer(BEAT_DURATION);
             timer.Timeout += StartGame;
+
+            var arrows = BeatMapSync.Instantiate();
+            GetTree().Root.AddChild(arrows);
         }
         else
         {
@@ -156,8 +159,6 @@ public partial class Root : Node2D
             // Lerp crowd scale and rotation back to 1
             _crowdBG.Scale = _crowdBG.Scale.Lerp(new Vector2(1, 1), (float)delta * 2);
             _crowdFG.Scale = _crowdFG.Scale.Lerp(new Vector2(1, 1), (float)delta * 2);
-          
-           
 
             _crowdBG.Rotation = Mathf.Lerp(_crowdBG.Rotation, 0, (float)delta * 2);
             _crowdFG.Rotation = Mathf.Lerp(_crowdFG.Rotation, 0, (float)delta * 2);
@@ -182,7 +183,7 @@ public partial class Root : Node2D
                 case Key.A:
                     _catSprite.Texture = CatLeft;
                     break;
-                case Key.S: 
+                case Key.S:
                     _catSprite.Texture = CatDown;
                     break;
                 case Key.D:
@@ -197,24 +198,63 @@ public partial class Root : Node2D
 
     private void ShowBeatResult()
     {
-        var node = new Label();
-        float beatPosition = (_songElapsed % BEAT_DURATION) / BEAT_DURATION;
-        float error = Mathf.Min(beatPosition, 1 - beatPosition);
+        if (BeatMapSync.Instance == null)
+            return;
 
-        if (error < MARGIN_OF_ERROR) {
-            node.Text = "Perfect";
-            _goatSprite.Texture = GoatHappy;
+        var node = new Label();
+        var arrows = BeatMapSync.Instance.Arrows;
+
+        BeatMapArrow? closestArrow = null;
+        float closestTimeDifference = float.MaxValue;
+
+        foreach (var arrow in arrows)
+        {
+            var expectedArrowTime = arrow.note.StartBeat * BEAT_DURATION + (
+                (float)arrow.note.Division.numerator / (float)arrow.note.Division.denominator
+            ) * BEAT_DURATION;
+
+            var timeDifference = Mathf.Abs(expectedArrowTime - _songElapsed);
+
+            if (timeDifference < closestTimeDifference)
+            {
+                closestTimeDifference = timeDifference;
+                closestArrow = arrow;
+            }
         }
-        else if (error < MARGIN_OF_ERROR * 2) {
-            node.Text = "Good";
-            _goatSprite.Texture = GoatNeutral;
-        }
-        else if (error < MARGIN_OF_ERROR * 3) {
-            node.Text = "Almost";
-            _goatSprite.Texture = GoatSad;
+
+        if (closestTimeDifference >= 0.2)
+        {
+            // Too far away to even flag the note as an error, just die!
+            node.Text = "Miss";
         }
         else
-            node.Text = "Miss";
+        {
+            if (closestTimeDifference < MARGIN_OF_ERROR)
+            {
+                node.Text = "Perfect";
+                _goatSprite.Texture = GoatHappy;
+            }
+            else if (closestTimeDifference < MARGIN_OF_ERROR * 2)
+            {
+                node.Text = "Good";
+                _goatSprite.Texture = GoatNeutral;
+            }
+            else if (closestTimeDifference < MARGIN_OF_ERROR * 3)
+            {
+                node.Text = "Almost";
+                _goatSprite.Texture = GoatSad;
+            }
+            else
+            {
+                node.Text = "Miss";
+                _goatSprite.Texture = GoatSad;
+            }
+
+            if (closestArrow == null)
+                return;
+
+            closestArrow.arrow.Visible = false;
+        }
 
         node.SetAnchorsPreset(Control.LayoutPreset.Center);
         GetNode<Control>("UI").AddChild(node);

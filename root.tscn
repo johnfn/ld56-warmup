@@ -1,13 +1,7 @@
 [gd_scene load_steps=25 format=3 uid="uid://m05b2vjnyjty"]
 
 [ext_resource type="Script" path="res://Root.cs" id="1_h3y6u"]
-[ext_resource type="PackedScene" path="res://arrow.tscn" id="2_cpfdo"]
-[ext_resource type="Texture2D" uid="uid://qdiq7c0nc256" path="res://Assets/Cat_Down.png" id="2_yinny"]
-[ext_resource type="Texture2D" uid="uid://cph01xlwdfe2f" path="res://Assets/Cat_Left.png" id="3_iq0lq"]
-[ext_resource type="PackedScene" path="res://beat_map_sync.tscn" id="3_n35kk"]
-[ext_resource type="Texture2D" uid="uid://d3kndf3yxelwb" path="res://Assets/Cat_Up.png" id="4_du2xc"]
-[ext_resource type="Script" path="res://BeatMapSync.cs" id="4_rvtxp"]
-[ext_resource type="Texture2D" uid="uid://br0p7v5aw4w03" path="res://Assets/Cat_Right.png" id="5_6l6y1"]
+[ext_resource type="PackedScene" uid="uid://bc074cp6tc1tq" path="res://arrow.tscn" id="2_cpfdo"]
 [ext_resource type="AudioStream" uid="uid://cy1q8ohdi8xc4" path="res://music/Neppa.mp3" id="5_tbpx1"]
 [ext_resource type="Texture2D" uid="uid://dniiyk04me44p" path="res://Assets/Room_Dark.png" id="6_7ic6o"]
 [ext_resource type="Texture2D" uid="uid://xjrfkqj1ii6u" path="res://Assets/Room_Bright.png" id="7_lhwmh"]
@@ -96,28 +90,26 @@ texture = ExtResource("15_kmbek")
 
 [node name="LeftArrow" parent="." instance=ExtResource("2_cpfdo")]
 modulate = Color(0.357422, 0.357422, 0.357422, 1)
+position = Vector2(700, 0)
 Type = 2
 Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
 [node name="DownArrow" parent="." instance=ExtResource("2_cpfdo")]
 modulate = Color(0.357422, 0.357422, 0.357422, 1)
-position = Vector2(100, 0)
+position = Vector2(900, 0)
 Type = 1
 Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
 [node name="UpArrow" parent="." instance=ExtResource("2_cpfdo")]
 modulate = Color(0.357422, 0.357422, 0.357422, 1)
-position = Vector2(200, 0)
+position = Vector2(1100, 0)
 Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
 [node name="RightArrow" parent="." instance=ExtResource("2_cpfdo")]
 modulate = Color(0.357422, 0.357422, 0.357422, 1)
-position = Vector2(300, 0)
+position = Vector2(1300, 14)
 Type = 3
 Tint = Color(0.357422, 0.357422, 0.357422, 1)
-
-[node name="BeatMapSync" parent="." instance=ExtResource("3_n35kk")]
-script = ExtResource("4_rvtxp")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

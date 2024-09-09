@@ -8,23 +8,27 @@
 
 [node name="Arrow" type="Node2D"]
 script = ExtResource("1_ph8lh")
+Tint = Color(1, 1, 1, 1)
 
 [node name="ArrowUp" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_s4qci")
 centered = false
 
 [node name="ArrowDown" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
+visible = false
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_trm1e")
 centered = false
 
 [node name="ArrowLeft" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
+visible = false
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_qctbv")
 centered = false
 
 [node name="ArrowRight" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
+visible = false
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_n5ur6")
 centered = false
