@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://j4p7vkitgmys" path="res://Assets/Room_SpotLight_Left.png" id="13_ewox5"]
 [ext_resource type="Texture2D" uid="uid://dloip7e8fb4kj" path="res://Assets/Combo_Hands_Mid.png" id="14_ni0n0"]
 [ext_resource type="Texture2D" uid="uid://bxwk6n0frgxvw" path="res://Assets/Combo_Hands_FG.png" id="15_kmbek"]
-[ext_resource type="Theme" uid="uid://do503jsjv23pi" path="res://Theme.tres" id="19_ou28h"]
+[ext_resource type="Theme" path="res://Theme.tres" id="19_ou28h"]
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_h3y6u")
@@ -95,24 +95,24 @@ texture = ExtResource("15_kmbek")
 
 [node name="LeftArrow" parent="." instance=ExtResource("2_cpfdo")]
 modulate = Color(0.357422, 0.357422, 0.357422, 1)
-position = Vector2(700, 0)
+position = Vector2(700, 100)
 Type = 2
 Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
 [node name="DownArrow" parent="." instance=ExtResource("2_cpfdo")]
 modulate = Color(0.357422, 0.357422, 0.357422, 1)
-position = Vector2(900, 0)
+position = Vector2(900, 100)
 Type = 1
 Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
 [node name="UpArrow" parent="." instance=ExtResource("2_cpfdo")]
 modulate = Color(0.357422, 0.357422, 0.357422, 1)
-position = Vector2(1100, 0)
+position = Vector2(1100, 100)
 Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
 [node name="RightArrow" parent="." instance=ExtResource("2_cpfdo")]
 modulate = Color(0.357422, 0.357422, 0.357422, 1)
-position = Vector2(1300, 14)
+position = Vector2(1300, 100)
 Type = 3
 Tint = Color(0.357422, 0.357422, 0.357422, 1)
 

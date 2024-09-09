@@ -181,7 +181,7 @@ public partial class Root : Node2D
         {
             _timeSinceLastKeyPress = 0;
             GetNode<Label>("UI/KeyPressed").Text = keyEvent.Keycode.ToString();
-            ShowBeatResult();
+            ShowBeatResult(keyEvent.Keycode.ToString());
 
             // Switch the cat sprite based on the key pressed
             switch (keyEvent.Keycode)
@@ -205,7 +205,7 @@ public partial class Root : Node2D
         }
     }
 
-    private void ShowBeatResult()
+    private void ShowBeatResult(string key)
     {
         if (BeatMapSync.Instance == null)
             return;
@@ -274,5 +274,45 @@ public partial class Root : Node2D
         var tween = CreateTween();
         tween.TweenProperty(node, "modulate:a", 0, MARGIN_OF_ERROR * 2);
         tween.TweenCallback(Callable.From(() => node.QueueFree()));
+
+        var lArrow = GetTree().Root.GetNode<Node2D>("Root/LeftArrow");
+        var dArrow = GetTree().Root.GetNode<Node2D>("Root/DownArrow");
+        var uArrow = GetTree().Root.GetNode<Node2D>("Root/UpArrow");
+        var rArrow = GetTree().Root.GetNode<Node2D>("Root/RightArrow");
+
+        Node2D hitArrow = null;
+
+        GD.Print(key);
+
+        switch (key)
+        {
+            case "W":
+            case "Up":
+                hitArrow = lArrow;
+                break;
+
+            case "S":
+            case "Down":
+                hitArrow = dArrow;
+                break;
+
+            case "A":
+            case "Left":
+                hitArrow = uArrow;
+                break;
+
+            case "D":
+            case "Right":
+                hitArrow = rArrow;
+                break;
+        }
+
+        if (hitArrow != null)
+        {
+            hitArrow.Scale = new Vector2(2, 2);
+
+            var arrowTween = CreateTween();
+            arrowTween.TweenProperty(hitArrow, "scale", new Vector2(1, 1), 0.1f);
+        }
     }
 }
