@@ -71,24 +71,24 @@ texture = ExtResource("11_lll0o")
 
 [node name="LeftArrow" parent="." instance=ExtResource("2_cpfdo")]
 modulate = Color(0.357422, 0.357422, 0.357422, 1)
-position = Vector2(700, 0)
+position = Vector2(700, 100)
 Type = 2
 Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
 [node name="DownArrow" parent="." instance=ExtResource("2_cpfdo")]
 modulate = Color(0.357422, 0.357422, 0.357422, 1)
-position = Vector2(900, 0)
+position = Vector2(900, 100)
 Type = 1
 Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
 [node name="UpArrow" parent="." instance=ExtResource("2_cpfdo")]
 modulate = Color(0.357422, 0.357422, 0.357422, 1)
-position = Vector2(1100, 0)
+position = Vector2(1100, 100)
 Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
 [node name="RightArrow" parent="." instance=ExtResource("2_cpfdo")]
 modulate = Color(0.357422, 0.357422, 0.357422, 1)
-position = Vector2(1300, 14)
+position = Vector2(1300, 100)
 Type = 3
 Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
