@@ -14,6 +14,8 @@ public partial class Root : Node2D
     private const float MARGIN_OF_ERROR = 0.1f;
     private const float BEAT_DURATION = 60f / BPM;
 
+    private int combo = 0;
+
     private BeatMap _beatMap = BeatMap.GetBeatMap();
     private float _songElapsed = 0;
     private GamePhase _currentPhase = GamePhase.Countdown;
@@ -21,6 +23,7 @@ public partial class Root : Node2D
 
     // Nodes
     private Label _countdown;
+    private Label _combo;
     private AudioStreamPlayer2D _audioStreamPlayer2D;
 
     private Sprite2D _catSprite;
@@ -70,6 +73,7 @@ public partial class Root : Node2D
     public override void _Ready()
     {
         _countdown = GetNode<Label>("UI/CountdownContainer/Countdown");
+        _combo = GetNode<Label>("UI/CountdownContainer/Combo");
         _audioStreamPlayer2D = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
         _catSprite = GetNode<Sprite2D>("Background/CatContainer/Cat");
         _background = GetNode<Sprite2D>("Background");
@@ -276,6 +280,7 @@ public partial class Root : Node2D
             // Too far away to even flag the note as an error, just die!
             node.Text = "Miss";
             _goatSprite.Texture = GoatSad;
+            combo = 0;
         }
         else if (
             closestArrow != null &&
@@ -287,18 +292,21 @@ public partial class Root : Node2D
         {
             node.Text = "Miss";
             _goatSprite.Texture = GoatSad;
+            combo = 0;
         }
         else
         {
             if (closestTimeDifference < MARGIN_OF_ERROR)
             {
                 node.Text = "Perfect";
+                combo++;
                 AddToScore(100);
                 _goatSprite.Texture = GoatHappy;
             }
             else if (closestTimeDifference < MARGIN_OF_ERROR * 2)
             {
                 node.Text = "Good";
+                combo++;
                 AddToScore(15);
                 _goatSprite.Texture = GoatNeutral;
             }
@@ -306,11 +314,13 @@ public partial class Root : Node2D
             {
                 AddToScore(5);
                 node.Text = "Almost";
+                combo = 0;
                 _goatSprite.Texture = GoatSad;
             }
             else
             {
                 node.Text = "Miss";
+                combo = 0;
                 _goatSprite.Texture = GoatSad;
             }
 
@@ -319,6 +329,15 @@ public partial class Root : Node2D
 
             closestArrow.arrow.isInMotion = false;
             closestArrow.arrow.Visible = false;
+        }
+
+        if (combo > 5)
+        {
+            _combo.Text = "Combo: " + combo;
+        }
+        else
+        {
+            _combo.Text = "";
         }
 
         node.SetAnchorsPreset(Control.LayoutPreset.FullRect);
