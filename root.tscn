@@ -20,15 +20,15 @@ position = Vector2(100, 0)
 Type = 1
 Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
-[node name="RightArrow" parent="." instance=ExtResource("2_cpfdo")]
-modulate = Color(0.357422, 0.357422, 0.357422, 1)
-position = Vector2(200, 0)
-Type = 3
-Tint = Color(0.357422, 0.357422, 0.357422, 1)
-
 [node name="UpArrow" parent="." instance=ExtResource("2_cpfdo")]
 modulate = Color(0.357422, 0.357422, 0.357422, 1)
+position = Vector2(200, 0)
+Tint = Color(0.357422, 0.357422, 0.357422, 1)
+
+[node name="RightArrow" parent="." instance=ExtResource("2_cpfdo")]
+modulate = Color(0.357422, 0.357422, 0.357422, 1)
 position = Vector2(300, 0)
+Type = 3
 Tint = Color(0.357422, 0.357422, 0.357422, 1)
 
 [node name="BeatMapSync" parent="." instance=ExtResource("3_n35kk")]
@@ -39,7 +39,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 1920.0
+offset_left = -1.0
+offset_right = 1919.0
 offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2

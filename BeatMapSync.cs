@@ -25,8 +25,8 @@ public partial class BeatMapSync : Node2D
 
         // Left is (0, 0)
         // Down is (100, 0)
-        // Right is (200, 0)
-        // Up is (0, 100)
+        // Up is (200, 0)
+        // Right is (300, 0)
 
         for (int i = 0; i < _beatMap.Notes.Count; i++)
         {
@@ -48,11 +48,11 @@ public partial class BeatMapSync : Node2D
                     arrow.Position = new Vector2(100, height);
                     break;
 
-                case ArrowType.Right:
+                case ArrowType.Up:
                     arrow.Position = new Vector2(200, height);
                     break;
 
-                case ArrowType.Up:
+                case ArrowType.Right:
                     arrow.Position = new Vector2(300, height);
                     break;
             }
