@@ -11,6 +11,9 @@ public partial class BeatMapSync : Node2D
 {
     private List<BeatMapArrow> _arrows = new List<BeatMapArrow>();
     private int _bpm;
+    public static BeatMapSync Instance { get; private set; }
+
+    public List<BeatMapArrow> Arrows => _arrows;
 
     public static BeatMapSync Instantiate()
     {
@@ -20,6 +23,7 @@ public partial class BeatMapSync : Node2D
 
     public override void _Ready()
     {
+        Instance = this;
         CreateArrows(180);
 
         GD.Print("BeatMapSync instantiated");

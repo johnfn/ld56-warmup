@@ -137,18 +137,59 @@ public partial class Root : Node2D
 
     private void ShowBeatResult()
     {
-        var node = new Label();
-        float beatPosition = (_songElapsed % BEAT_DURATION) / BEAT_DURATION;
-        float error = Mathf.Min(beatPosition, 1 - beatPosition);
+        if (BeatMapSync.Instance == null)
+            return;
 
-        if (error < MARGIN_OF_ERROR)
-            node.Text = "Perfect";
-        else if (error < MARGIN_OF_ERROR * 2)
-            node.Text = "Good";
-        else if (error < MARGIN_OF_ERROR * 3)
-            node.Text = "Almost";
-        else
+        var node = new Label();
+        var arrows = BeatMapSync.Instance.Arrows;
+
+        BeatMapArrow? closestArrow = null;
+        float closestTimeDifference = float.MaxValue;
+
+        foreach (var arrow in arrows)
+        {
+            var expectedArrowTime = arrow.note.StartBeat * BEAT_DURATION + (
+                (float)arrow.note.Division.numerator / (float)arrow.note.Division.denominator
+            ) * BEAT_DURATION;
+
+            var timeDifference = Mathf.Abs(expectedArrowTime - _songElapsed);
+
+            if (timeDifference < closestTimeDifference)
+            {
+                closestTimeDifference = timeDifference;
+                closestArrow = arrow;
+            }
+        }
+
+        if (closestTimeDifference >= 0.2)
+        {
+            // Too far away to even flag the note as an error, just die!
             node.Text = "Miss";
+        }
+        else
+        {
+            if (closestTimeDifference < MARGIN_OF_ERROR)
+            {
+                node.Text = "Perfect";
+            }
+            else if (closestTimeDifference < MARGIN_OF_ERROR * 2)
+            {
+                node.Text = "Good";
+            }
+            else if (closestTimeDifference < MARGIN_OF_ERROR * 3)
+            {
+                node.Text = "Almost";
+            }
+            else
+            {
+                node.Text = "Miss";
+            }
+
+            if (closestArrow == null)
+                return;
+
+            closestArrow.arrow.Visible = false;
+        }
 
         node.SetAnchorsPreset(Control.LayoutPreset.Center);
         GetNode<Control>("UI").AddChild(node);
