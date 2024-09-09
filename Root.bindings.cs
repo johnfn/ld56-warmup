@@ -14,6 +14,16 @@ public partial class Root : Node2D {
     public RootNodes(Root parent) {
       this.parent = parent;
     }
+    private Arrow? _Arrow;
+    public Arrow Arrow {
+      get {
+        if (_Arrow == null) {
+          _Arrow = parent.GetNode<Arrow>("Arrow");
+        }
+        return _Arrow;
+      }
+    }
+
   }
 
   public RootNodes? _Nodes;

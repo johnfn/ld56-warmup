@@ -9,6 +9,7 @@
 script = ExtResource("1_h3y6u")
 
 [node name="Arrow" parent="." instance=ExtResource("2_cpfdo")]
+Type = 3
 
 [node name="BeatMapSync" parent="." instance=ExtResource("3_n35kk")]
 script = ExtResource("4_rvtxp")
