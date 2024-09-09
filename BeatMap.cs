@@ -15,7 +15,6 @@ public class BeatMap
         new(3, (0, 4), ArrowType.Right),
         new(4, (0, 4), ArrowType.Right),
         new(5, (0, 4), ArrowType.Left),
-        new(6, (0, 4), ArrowType.Left),
         // new(6, (0, 4), ArrowType.Left),
         // new(7, (0, 4), ArrowType.Down),
         // new(8, (0, 4), ArrowType.Right),
