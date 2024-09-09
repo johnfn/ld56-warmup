@@ -52,6 +52,13 @@ public partial class Arrow : Node2D
         }
     }
 
+    public static Arrow Instantiate(ArrowType type)
+    {
+        var arrow = GD.Load<PackedScene>("res://arrow.tscn").Instantiate<Arrow>();
+        arrow.Type = type;
+        return arrow;
+    }
+
     public override void _Ready()
     {
         _arrowDown.Visible = false;
