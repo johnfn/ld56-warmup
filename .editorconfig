@@ -1,0 +1,27 @@
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.cs]
+# "Replace var with explicit type" is a stupid error
+dotnet_diagnostic.IDE0008.severity = none
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+csharp_new_line_before_open_brace = none
+
+[**.generated.cs]
+# Ignore these files entirely
+generated_code = true
+dotnet_analyzer_diagnostic.severity = none
+
+

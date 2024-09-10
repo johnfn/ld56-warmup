@@ -2,14 +2,14 @@ using System.Collections.Generic;
 
 public class BeatMap
 {
-    public List<BeatMapNote> Notes { get; set; }
+  public List<BeatMapNote> Notes { get; set; }
 
-    public static BeatMap GetBeatMap()
+  public static BeatMap GetBeatMap()
+  {
+    return new BeatMap
     {
-        return new BeatMap
-        {
-            Notes = new List<BeatMapNote> {
-        new(0, (0, 4), ArrowType.Right),
+      Notes = [
+    new(0, (0, 4), ArrowType.Right),
         new(1, (0, 4), ArrowType.Right),
         new(2, (0, 4), ArrowType.Right),
         new(3, (0, 4), ArrowType.Right),
@@ -33,9 +33,9 @@ public class BeatMap
         new(21, (0, 4), ArrowType.Right),
         new(22, (0, 4), ArrowType.Right),
 
-      },
-        };
-    }
+      ],
+    };
+  }
 }
 
 public record BeatMapNote(

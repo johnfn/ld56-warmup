@@ -14,7 +14,7 @@ public partial class Root : Node2D
     private const float MARGIN_OF_ERROR = 0.1f;
     private const float BEAT_DURATION = 60f / BPM;
 
-    private int combo = 0;
+    private int combo;
 
     private BeatMap _beatMap = BeatMap.GetBeatMap();
     private float _songElapsed = 0;
@@ -147,9 +147,11 @@ public partial class Root : Node2D
         _magicCircle.Texture = MagicCircleDark;
         _spotlightL.Visible = true;
 
-        Timer timer = new Timer();
-        timer.WaitTime = BEAT_DURATION;
-        timer.OneShot = false;
+        Timer timer = new Timer
+        {
+            WaitTime = BEAT_DURATION,
+            OneShot = false
+        };
         timer.Timeout += OnBeatTimerTimeout;
         AddChild(timer);
         timer.Start();
