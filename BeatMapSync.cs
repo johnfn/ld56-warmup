@@ -1,6 +1,8 @@
 using Godot;
 using System.Collections.Generic;
 
+namespace LD56;
+
 public record BeatMapArrow(
   Arrow arrow,
   BeatMapNote note
