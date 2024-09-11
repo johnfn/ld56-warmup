@@ -320,7 +320,7 @@ class MyCodegen {
 
     return new Scene {
       Nodes = nodes,
-      Scripts = scripts.Values.ToList(),
+      Scripts = [.. scripts.Values],
       AnimationLibrary = animationLibrary,
       PackedSceneResources = packedScenes,
       ResPath = sceneResPath,

@@ -20,30 +20,7 @@ public partial class Root : Node2D {
   private GamePhase _currentPhase = GamePhase.Countdown;
   private float _lastBeatTime = 0;
 
-  // Nodes
-  private AudioStreamPlayer2D _audioStreamPlayer2D;
-
-  private Sprite2D _catSprite;
-
-  private Sprite2D _goatSprite;
-
-  private Sprite2D _background;
-
-  private Sprite2D _magicCircle;
-
-  private Sprite2D _spotlightR;
-  private Sprite2D _spotlightL;
-
-  private Sprite2D _crowdBG;
-  private Sprite2D _crowdFG;
-
-  private Label _score;
-
-  private Control _gameOverScreen;
-
   private float _timeSinceLastKeyPress = 0;
-
-
 
   // Different exported sprites for the cat
   [Export] public Texture2D CatDown;
@@ -57,7 +34,6 @@ public partial class Root : Node2D {
   [Export] public Texture2D BackgroundLight;
 
   // Magic circle textures
-
   [Export] public Texture2D MagicCircleDark;
   [Export] public Texture2D MagicCircleLight;
 
@@ -66,29 +42,12 @@ public partial class Root : Node2D {
   [Export] public Texture2D GoatSad;
   [Export] public Texture2D GoatNeutral;
 
-
   public override void _Ready() {
-    _audioStreamPlayer2D = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
-    _catSprite = GetNode<Sprite2D>("Background/CatContainer/Cat");
-    _background = GetNode<Sprite2D>("Background");
-    _background.Texture = BackgroundLight;
-
-    _magicCircle = GetNode<Sprite2D>("Background/MagicCircle");
-    _magicCircle.Texture = MagicCircleLight;
-
-    _spotlightR = GetNode<Sprite2D>("Background/SpotlightR");
-    _spotlightL = GetNode<Sprite2D>("Background/SpotlightL");
-    _spotlightL.Visible = false;
-    _spotlightR.Visible = false;
-
-    _goatSprite = GetNode<Sprite2D>("Background/Goat");
-
-    _crowdBG = GetNode<Sprite2D>("Background/CrowdContainer/CrowdBG");
-    _crowdFG = GetNode<Sprite2D>("Background/CrowdContainer/CrowdFG");
-
-    _score = GetNode<Label>("UI/Score");
-
-    _gameOverScreen = GetNode<Control>("UI/GameOver");
+    Nodes.AudioStreamPlayer2D.Play();
+    Nodes.Background.Texture = BackgroundLight;
+    Nodes.Background_MagicCircle.Texture = MagicCircleLight;
+    Nodes.Background_SpotlightL.Visible = false;
+    Nodes.Background_SpotlightR.Visible = false;
 
     StartCountdown();
   }
@@ -133,13 +92,13 @@ public partial class Root : Node2D {
 
     countdown.Visible = false;
     _currentPhase = GamePhase.Playing;
-    _audioStreamPlayer2D.Play();
+    Nodes.AudioStreamPlayer2D.Play();
     _lastBeatTime = 0;
 
     // Darken the room and turn on the spotlights
-    _background.Texture = BackgroundDark;
-    _magicCircle.Texture = MagicCircleDark;
-    _spotlightL.Visible = true;
+    Nodes.Background.Texture = BackgroundDark;
+    Nodes.Background_MagicCircle.Texture = MagicCircleDark;
+    Nodes.Background_SpotlightL.Visible = true;
 
     Timer timer = new() {
       WaitTime = BEAT_DURATION,
@@ -149,23 +108,23 @@ public partial class Root : Node2D {
     AddChild(timer);
     timer.Start();
 
-    BeatMapSync.Instance.started = true;
+    Nodes.BeatMapSync.started = true;
   }
 
   private void EndGame() {
     _currentPhase = GamePhase.GameOver;
-    _audioStreamPlayer2D.Stop();
+    Nodes.AudioStreamPlayer2D.Stop();
 
-    _gameOverScreen.Visible = true;
+    Nodes.UI_GameOver.Visible = true;
   }
 
   private void OnBeatTimerTimeout() {
     if (_currentPhase == GamePhase.Playing) {
-      _spotlightL.Visible = !_spotlightL.Visible;
-      _spotlightR.Visible = !_spotlightR.Visible;
+      Nodes.Background_SpotlightL.Visible = !Nodes.Background_SpotlightL.Visible;
+      Nodes.Background_SpotlightR.Visible = !Nodes.Background_SpotlightR.Visible;
 
-      _crowdBG.Scale = new Vector2(1.1f, 1.1f);
-      _crowdFG.Scale = new Vector2(1.1f, 1.1f);
+      Nodes.Background_CrowdContainer_CrowdBG.Scale = new Vector2(1.1f, 1.1f);
+      Nodes.Background_CrowdContainer_CrowdFG.Scale = new Vector2(1.1f, 1.1f);
     }
   }
 
@@ -174,25 +133,25 @@ public partial class Root : Node2D {
       _songElapsed += (float)delta;
       _timeSinceLastKeyPress += (float)delta;
       if (_timeSinceLastKeyPress > BEAT_DURATION) {
-        _catSprite.Texture = CatNeutral;
+        Nodes.Background_CatContainer_Cat.Texture = CatNeutral;
       }
 
-      Vector2 newScale = new Vector2(Mathf.Max(1, _catSprite.Scale.X - (float)delta * 2), Mathf.Max(1, _catSprite.Scale.Y - (float)delta * 2));
-      _catSprite.Scale = newScale;
+      Vector2 newScale = new(Mathf.Max(1, Nodes.Background_CatContainer_Cat.Scale.X - (float)delta * 2), Mathf.Max(1, Nodes.Background_CatContainer_Cat.Scale.Y - (float)delta * 2));
+      Nodes.Background_CatContainer_Cat.Scale = newScale;
 
       // Lerp crowd scale and rotation back to 1
-      _crowdBG.Scale = _crowdBG.Scale.Lerp(new Vector2(1, 1), (float)delta * 2);
-      _crowdFG.Scale = _crowdFG.Scale.Lerp(new Vector2(1, 1), (float)delta * 2);
+      Nodes.Background_CrowdContainer_CrowdBG.Scale = Nodes.Background_CrowdContainer_CrowdBG.Scale.Lerp(new Vector2(1, 1), (float)delta * 2);
+      Nodes.Background_CrowdContainer_CrowdFG.Scale = Nodes.Background_CrowdContainer_CrowdFG.Scale.Lerp(new Vector2(1, 1), (float)delta * 2);
 
-      _crowdBG.Rotation = Mathf.Lerp(_crowdBG.Rotation, 0, (float)delta * 2);
-      _crowdFG.Rotation = Mathf.Lerp(_crowdFG.Rotation, 0, (float)delta * 2);
+      Nodes.Background_CrowdContainer_CrowdBG.Rotation = Mathf.Lerp(Nodes.Background_CrowdContainer_CrowdBG.Rotation, 0, (float)delta * 2);
+      Nodes.Background_CrowdContainer_CrowdFG.Rotation = Mathf.Lerp(Nodes.Background_CrowdContainer_CrowdFG.Rotation, 0, (float)delta * 2);
     }
   }
 
   public override void _Input(InputEvent @event) {
     if (@event is InputEventKey keyEvent && keyEvent.Pressed) {
       _timeSinceLastKeyPress = 0;
-      GetNode<Label>("UI/KeyPressed").Text = keyEvent.Keycode.ToString();
+      Nodes.UI_KeyPressed.Text = keyEvent.Keycode.ToString();
 
       var wasMotion = false;
 
@@ -200,45 +159,45 @@ public partial class Root : Node2D {
       switch (keyEvent.Keycode) {
         case Key.W:
         case Key.Up:
-          _catSprite.Texture = CatUp;
+          Nodes.Background_CatContainer_Cat.Texture = CatUp;
           wasMotion = true;
           break;
         case Key.A:
         case Key.Left:
-          _catSprite.Texture = CatLeft;
+          Nodes.Background_CatContainer_Cat.Texture = CatLeft;
           wasMotion = true;
           break;
         case Key.S:
         case Key.Down:
-          _catSprite.Texture = CatDown;
+          Nodes.Background_CatContainer_Cat.Texture = CatDown;
           wasMotion = true;
           break;
         case Key.D:
         case Key.Right:
-          _catSprite.Texture = CatRight;
+          Nodes.Background_CatContainer_Cat.Texture = CatRight;
           wasMotion = true;
           break;
       }
 
       if (wasMotion) {
         ShowBeatResult(keyEvent.Keycode.ToString());
-        _catSprite.Scale = new Vector2(1.2f, 1.2f);
+        Nodes.Background_CatContainer_Cat.Scale = new Vector2(1.2f, 1.2f);
       }
     }
   }
 
   private void AddToScore(int score) {
-    _score.Text = (int.Parse(
-        _score.Text.Replace(",", "")
+    Nodes.UI_Score.Text = (int.Parse(
+        Nodes.UI_Score.Text.Replace(",", "")
     ) + score).ToString("N0");
   }
 
   private void ShowBeatResult(string key) {
-    if (BeatMapSync.Instance == null)
+    if (Nodes.BeatMapSync == null)
       return;
 
     var node = new Label();
-    var arrows = BeatMapSync.Instance.Arrows;
+    var arrows = Nodes.BeatMapSync.Arrows;
 
     BeatMapArrow? closestArrow = null;
     float closestTimeDifference = float.MaxValue;
@@ -259,7 +218,7 @@ public partial class Root : Node2D {
     if (closestTimeDifference >= 0.2) {
       // Too far away to even flag the note as an error, just die!
       node.Text = "Miss";
-      _goatSprite.Texture = GoatSad;
+      Nodes.Background_Goat.Texture = GoatSad;
       combo = 0;
     }
     else if (
@@ -270,7 +229,7 @@ public partial class Root : Node2D {
         closestArrow.arrow.Type == ArrowType.Right && key != "D" && key != "Right")
     ) {
       node.Text = "Miss";
-      _goatSprite.Texture = GoatSad;
+      Nodes.Background_Goat.Texture = GoatSad;
       combo = 0;
     }
     else {
@@ -278,24 +237,24 @@ public partial class Root : Node2D {
         node.Text = "Perfect";
         combo++;
         AddToScore(100);
-        _goatSprite.Texture = GoatHappy;
+        Nodes.Background_Goat.Texture = GoatHappy;
       }
       else if (closestTimeDifference < MARGIN_OF_ERROR * 2) {
         node.Text = "Good";
         combo++;
         AddToScore(15);
-        _goatSprite.Texture = GoatNeutral;
+        Nodes.Background_Goat.Texture = GoatNeutral;
       }
       else if (closestTimeDifference < MARGIN_OF_ERROR * 3) {
         AddToScore(5);
         node.Text = "Almost";
         combo = 0;
-        _goatSprite.Texture = GoatSad;
+        Nodes.Background_Goat.Texture = GoatSad;
       }
       else {
         node.Text = "Miss";
         combo = 0;
-        _goatSprite.Texture = GoatSad;
+        Nodes.Background_Goat.Texture = GoatSad;
       }
 
       if (closestArrow == null)
@@ -317,38 +276,33 @@ public partial class Root : Node2D {
     node.HorizontalAlignment = HorizontalAlignment.Center;
     node.VerticalAlignment = VerticalAlignment.Center;
 
-    GetNode<Control>("UI").AddChild(node);
+    Nodes.UI.AddChild(node);
 
     var tween = CreateTween();
     tween.TweenProperty(node, "modulate:a", 0, MARGIN_OF_ERROR * 2);
     tween.TweenCallback(Callable.From(() => node.QueueFree()));
 
-    var lArrow = GetTree().Root.GetNode<Node2D>("Root/LeftArrow");
-    var dArrow = GetTree().Root.GetNode<Node2D>("Root/DownArrow");
-    var uArrow = GetTree().Root.GetNode<Node2D>("Root/UpArrow");
-    var rArrow = GetTree().Root.GetNode<Node2D>("Root/RightArrow");
-
-    Node2D hitArrow = null;
+    Node2D? hitArrow = null;
 
     switch (key) {
       case "W":
       case "Up":
-        hitArrow = uArrow;
+        hitArrow = Nodes.UpArrow;
         break;
 
       case "S":
       case "Down":
-        hitArrow = dArrow;
+        hitArrow = Nodes.DownArrow;
         break;
 
       case "A":
       case "Left":
-        hitArrow = lArrow;
+        hitArrow = Nodes.LeftArrow;
         break;
 
       case "D":
       case "Right":
-        hitArrow = rArrow;
+        hitArrow = Nodes.RightArrow;
         break;
     }
 
