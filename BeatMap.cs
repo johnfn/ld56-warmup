@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+namespace LD56;
 
 public class BeatMap {
   public List<BeatMapNote> Notes { get; set; }
@@ -29,6 +30,7 @@ public class BeatMap {
         new(20, (0, 4), ArrowType.Down),
         new(21, (0, 4), ArrowType.Right),
 
+        // Why does autoformat not work on this file?
                   new(22, (0, 4), ArrowType.Right),
       ],
     };

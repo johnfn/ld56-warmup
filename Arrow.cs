@@ -1,5 +1,7 @@
 using Godot;
 
+namespace LD56;
+
 public enum ArrowType {
   Up,
   Down,
@@ -10,11 +12,6 @@ public enum ArrowType {
 [Tool]
 public partial class Arrow : Node2D {
   public bool isInMotion = true;
-
-  private Sprite2D _arrowUp => GetNode<Sprite2D>("ArrowUp");
-  private Sprite2D _arrowDown => GetNode<Sprite2D>("ArrowDown");
-  private Sprite2D _arrowLeft => GetNode<Sprite2D>("ArrowLeft");
-  private Sprite2D _arrowRight => GetNode<Sprite2D>("ArrowRight");
 
   private ArrowType _type;
   [Export(PropertyHint.Enum)]
@@ -39,10 +36,10 @@ public partial class Arrow : Node2D {
   }
 
   public override void _Ready() {
-    _arrowDown.Visible = false;
-    _arrowLeft.Visible = false;
-    _arrowRight.Visible = false;
-    _arrowUp.Visible = false;
+    Nodes.ArrowDown.Visible = false;
+    Nodes.ArrowLeft.Visible = false;
+    Nodes.ArrowRight.Visible = false;
+    Nodes.ArrowUp.Visible = false;
 
     UpdateArrowVisibility();
   }
@@ -51,9 +48,9 @@ public partial class Arrow : Node2D {
   }
 
   private void UpdateArrowVisibility() {
-    _arrowDown.Visible = _type == ArrowType.Down;
-    _arrowLeft.Visible = _type == ArrowType.Left;
-    _arrowRight.Visible = _type == ArrowType.Right;
-    _arrowUp.Visible = _type == ArrowType.Up;
+    Nodes.ArrowDown.Visible = _type == ArrowType.Down;
+    Nodes.ArrowLeft.Visible = _type == ArrowType.Left;
+    Nodes.ArrowRight.Visible = _type == ArrowType.Right;
+    Nodes.ArrowUp.Visible = _type == ArrowType.Up;
   }
 }
