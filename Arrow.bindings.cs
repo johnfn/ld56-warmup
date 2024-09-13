@@ -1,6 +1,5 @@
 using Godot;
-namespace LD56;
-public partial class Arrow : Node2D {
+namespace LD56;public partial class Arrow : Node2D {
   public static Arrow New() {
     return GD.Load<PackedScene>("res://arrow.tscn").Instantiate<Arrow>();
   }

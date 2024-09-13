@@ -2,6 +2,8 @@ using Godot;
 
 namespace LD56;
 
+using static Utils;
+
 public enum GamePhase {
   Countdown,
   Playing,
@@ -15,11 +17,9 @@ public partial class Root : Node2D {
 
   private int combo;
 
-  private BeatMap _beatMap = BeatMap.GetBeatMap();
   private float _songElapsed = 0;
   private GamePhase _currentPhase = GamePhase.Countdown;
   private float _lastBeatTime = 0;
-
   private float _timeSinceLastKeyPress = 0;
 
   // Different exported sprites for the cat
@@ -71,7 +71,7 @@ public partial class Root : Node2D {
     var currentNumber = int.Parse(countdown.Text);
     currentNumber--;
 
-    countdown.Scale = new Vector2(3, 3);
+    countdown.Scale = new(3, 3);
     var tween = CreateTween();
     tween.TweenProperty(countdown, "scale", new Vector2(1, 1), BEAT_DURATION);
 

@@ -9,6 +9,7 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 
 [*.cs]
+[*.csx]
 # "Replace var with explicit type" is a stupid error
 dotnet_diagnostic.IDE0008.severity = none
 indent_style = space
@@ -18,6 +19,7 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 csharp_new_line_before_open_brace = none
+csharp_new_line_before_else = none
 
 [**.generated.cs]
 # Ignore these files entirely
